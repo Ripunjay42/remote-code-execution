@@ -1,9 +1,15 @@
 import React from 'react'
+import Topbar from '@/components/Topbar'
 
 const page = () => {
   return (
-    <div className='text-center'>
-      <h1>Home page</h1>
+    <div className='bg-gradient-to-b from-gray-900 to-black min-h-screen relative'>
+      <div className='max-w-7xl mx-auto'>
+        <Topbar />
+        <div className='text-center text-white mt-20'>
+          <h1>Home page</h1>
+        </div>
+      </div>
     </div>
   )
 }
