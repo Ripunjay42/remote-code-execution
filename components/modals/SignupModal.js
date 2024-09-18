@@ -35,16 +35,16 @@ const SignupModal = ({ isOpen, onClose, onLoginClick }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-8 rounded-lg max-w-md w-full">
-        <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
+    <div className="bg-transparent flex justify-center items-center">
+      <div className="bg-gradient-to-b from-gray-900 to-gray-800 p-8 rounded-lg max-w-xs sm:max-w-md w-96">
+        <h2 className="text-2xl text-violet-300 font-bold mb-4">Sign Up</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full p-1 border rounded text-md"
             required
           />
           <input
@@ -52,22 +52,22 @@ const SignupModal = ({ isOpen, onClose, onLoginClick }) => {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full p-1 border rounded text-md"
             required
           />
-          <button type="submit" className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">
+          <button type="submit" className="w-full bg-green-600 text-white font-bold p-1 rounded hover:bg-green-700">
             Sign Up
           </button>
         </form>
         {error && <p className="text-red-500 mt-2">{error}</p>}
         <div className="mt-4 text-sm">
-          <p>Already have an account?{' '}
-            <button onClick={onLoginClick} className="text-blue-600 hover:underline">
+          <p className='text-violet-400'>Already have an account?{' '}
+            <button onClick={onLoginClick} className="text-cyan-300 hover:underline">
               Log in
             </button>
           </p>
         </div>
-        <button onClick={onClose} className="mt-4 text-sm text-gray-600 hover:underline">
+        <button onClick={onClose} className="mt-4 text-sm text-cyan-300 hover:underline">
           Close
         </button>
       </div>

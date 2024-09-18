@@ -71,8 +71,8 @@ const Authpage = () => {
         <div className='text-center text-white pt-20'>
           {!isAuthenticated ? (
             <>
-              <h1 className='text-3xl font-bold mb-4 text-violet-400'>Auth Page</h1>
-              <p className='mb-6 text-cyan-600'>Please log in or sign up to continue</p>
+              <h1 className='text-2xl font-bold mb-16 text-cyan-300'>Please log in or sign up to continue</h1>
+              {/* <p className='mb-2 text-cyan-600 text-lg'>Please log in or sign up to continue</p> */}
             </>
           ) : (
             <h1 className='text-3xl font-bold mb-6'>Welcome </h1>

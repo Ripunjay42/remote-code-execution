@@ -47,10 +47,10 @@ const Topbar = () => {
               <span className="text-sm">{user.name}</span>
             </button>
             {showSignOut && (
-              <div className="absolute right-0 mt-2 w-20 bg-violet-800 rounded-md shadow-lg py-1">
+              <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-20 bg-violet-800 rounded-md shadow-lg py-1">
                 <button
                   onClick={handleSignOut}
-                  className="block px-2 py-1 text-sm text-white w-full text-center"
+                  className="block p-0 text-sm text-white w-full text-center"
                 >
                   Sign out
                 </button>

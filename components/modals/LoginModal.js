@@ -46,16 +46,16 @@ const LoginModal = ({ isOpen, onClose, onCreateAccountClick, onForgotPasswordCli
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-transparent flex justify-center items-center">
-      <div className="bg-gradient-to-b from-gray-900 to-gray-800 p-8 rounded-lg max-w-md w-full">
-        <h2 className="text-xl text-center text-violet-400 font-bold mb-4">Log In</h2>
+    <div className="bg-transparent flex justify-center items-center">
+      <div className="bg-gradient-to-b from-gray-900 to-gray-800 p-8 rounded-lg max-w-xs sm:max-w-md w-96">
+        <h2 className="text-2xl  text-violet-300 font-bold mb-4">Sign In</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full p-1 border rounded text-md"
             required
           />
           <input
@@ -63,10 +63,10 @@ const LoginModal = ({ isOpen, onClose, onCreateAccountClick, onForgotPasswordCli
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full p-1 border rounded text-md"
             required
           />
-          <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+          <button type="submit" className="w-full bg-blue-600 text-white font-bold p-1 rounded hover:bg-blue-700">
             Log In
           </button>
         </form>
