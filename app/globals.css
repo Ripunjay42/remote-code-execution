@@ -12,3 +12,8 @@
     animation: spin 1s linear infinite;
   }
   
+
+  .text-sm, .md\:text-base {
+    overflow-wrap: break-word; /* Break long words */
+    word-wrap: break-word;     /* Fallback for older browsers */
+  }

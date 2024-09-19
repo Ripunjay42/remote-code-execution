@@ -1,5 +1,6 @@
 import React from 'react'
 import Topbar from '@/components/Topbar'
+import ProblemTable from '@/components/ProblemTable'
 
 const page = () => {
   return (
@@ -8,6 +9,7 @@ const page = () => {
         <Topbar />
         <div className='text-center text-white mt-20'>
           <h1 className='text-3xl text-violet-300 font-extrabold'>WELLCOME</h1>
+          <ProblemTable />
         </div>
       </div>
     </div>

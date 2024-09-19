@@ -30,9 +30,18 @@ const Topbar = () => {
     <div className="flex items-center justify-between sm:px-12 px-2 md:px-24 h-16">
       {/* Add the logo image before the Roj Code text */}
       <Link href="/" className="flex items-center text-violet-300 text-lg font-bold">
-        <img src="/logo.png" alt="Roj Code Logo" className="h-8 w-8 mr-2 pointer-events-none" /> {/* Adjust the path and size */}
+        <img src="/logo.png" alt="Roj Code Logo" className="h-8 w-8 mr-2 pointer-events-none" />
         Daily Code
       </Link>
+
+      {/* Centered Problems Link with Underline */}
+      <Link 
+        href="/" 
+        className="mx-auto text-violet-300 text-lg font-bold border-b-2 border-transparen border-white transition duration-300"
+      >
+        Problems
+      </Link>
+
       <div>
         {user ? (
           <div className="relative">
@@ -40,7 +49,6 @@ const Topbar = () => {
               onClick={() => setShowSignOut(!showSignOut)}
               className="flex items-center space-x-2 text-white"
             >
-              {/* Add a circular background to the User icon */}
               <div className="flex items-center justify-center w-8 h-8 bg-black rounded-full">
                 <User className="h-5 w-5 text-violet-400" />
               </div>
