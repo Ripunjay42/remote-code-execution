@@ -33,9 +33,9 @@ export default function CodeEditor({ code, onChange }) {
         enableLiveAutocompletion: true,
         enableSnippets: true,
         showLineNumbers: true,
-        tabSize: 2,
+        tabSize: 4,
       }}
-      style={{ width: '100%', height: '400px', padding: '10px' }}
+      style={{ width: '100%', height: '500px', padding: '10px' }}
     />
   );
 }
