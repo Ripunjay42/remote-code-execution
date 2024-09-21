@@ -9,15 +9,17 @@ import { problems } from '../../../lib/problems';
 import Topbar from '@/components/Topbar';
 import { auth } from '@/components/firebase/firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { db } from '@/components/firebase/firebaseConfig';
+import Confetti from 'react-confetti';
 
 const JUDGE0_API_URL = 'https://judge0-ce.p.rapidapi.com';
-const JUDGE0_API_KEY = '4b9982abf5msh9ff92f7a89614c8p10fceejsn6689b3ab6e07'; // Replace with your actual API key
+const JUDGE0_API_KEY = '32da8d1aecmshd7ff93dae736ddap1f4606jsne686ec2d3b3a'; // Replace with your actual API key
 
 export default function ProblemPage() {
   const { id } = useParams();
   const problem = problems.find((p) => p.id === id);
   
-  // Load initial code from local storage or use starter code
   const [code, setCode] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem(`code_${id}`) || (problem?.starterCode || '');
@@ -29,16 +31,32 @@ export default function ProblemPage() {
   const [user, setUser] = useState(null);
   const [showAuthMessage, setShowAuthMessage] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSolved, setIsSolved] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0); // Key for refreshing TestCases
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      
+      if (currentUser) {
+        const docRef = doc(db, 'users', currentUser.uid, 'solvedProblems', problem.id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setIsSolved(docSnap.data().solved);
+        } else {
+          setIsSolved(false);
+        }
+      } else {
+        setIsSolved(false);
+        setTestResults([]); // Clear results on sign-out
+        setRefreshKey(prev => prev + 1); // Change the key to refresh TestCases
+      }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [problem.id]);
 
-  // Save code to local storage whenever it changes
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem(`code_${id}`, code);
@@ -48,6 +66,7 @@ export default function ProblemPage() {
   const handleSubmit = async () => {
     if (!user) {
       setShowAuthMessage(true);
+      setTimeout(() => setShowAuthMessage(false), 3000);
       return;
     }
 
@@ -60,15 +79,12 @@ export default function ProblemPage() {
         const testCase = problem.testCases[i];
         const { input, expectedOutput } = testCase;
 
-        // Prepare the full code to run with test cases
         let fullCode = `${code}\n${problem.mainFunction}`;
 
-        // Insert appropriate values into the main function for each problem type
+        // Prepare input based on problem type
         if (problem.id === 'twoSum') {
           const [nums, target] = parseTwoSumInput(input);
-          fullCode = fullCode
-            .replace('INPUT_VALUES', nums)
-            .replace('TARGET_VALUE', target);
+          fullCode = fullCode.replace('INPUT_VALUES', nums).replace('TARGET_VALUE', target);
         } else if (problem.id === 'validParentheses') {
           const inputString = parseStringInput(input);
           fullCode = fullCode.replace('INPUT_STRING', inputString);
@@ -135,6 +151,19 @@ export default function ProblemPage() {
       }
     }
 
+    const allPassed = results.every(result => result.passed);
+    if (allPassed) {
+      await setDoc(doc(db, 'users', user.uid, 'solvedProblems', problem.id), {
+        solved: true,
+      });
+      setIsSolved(true);
+      setShowConfetti(true);
+
+      setTimeout(() => {
+        setShowConfetti(false);
+      }, 6000);
+    }
+
     setTestResults(results);
     setIsSubmitting(false);
   };
@@ -167,12 +196,13 @@ export default function ProblemPage() {
     <div className="bg-gradient-to-b from-gray-900 to-black min-h-screen relative px-4">
       <div className="max-w-7xl mx-auto">
         <Topbar />
+        {showConfetti && <Confetti />}
         <div className="flex flex-col md:flex-row gap-4 mt-10">
           <div className="w-full md:w-1/2 p-4 border-spacing-2 border-2">
-            <ProblemDescription problem={problem} />
+            <ProblemDescription problem={problem} isSolved={isSolved} />
           </div>
-          <div className="w-full md:w-1/2 border-spacing-2 border-2 p-4">
-            <div className="text-center text-lg font-bold text-white mb-2">C++</div>
+          <div className="w-full md:w-1/2 border-spacing-2 border-2 p-3">
+            <div className="text-center text-lg font-bold text-white mb-0">C++</div>
             <CodeEditor code={code} onChange={setCode} />
             <button
               onClick={handleSubmit}
@@ -187,7 +217,7 @@ export default function ProblemPage() {
               <p className="mt-2 text-red-500">Please sign in to submit your code.</p>
             )}
             <div className="mt-4">
-              <TestCases testCases={problem.testCases} results={testResults} />
+              <TestCases key={refreshKey} testCases={problem.testCases} results={testResults} />
             </div>
           </div>
         </div>
