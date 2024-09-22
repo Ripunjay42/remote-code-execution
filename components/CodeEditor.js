@@ -33,7 +33,7 @@ export default function CodeEditor({ code, onChange }) {
         enableLiveAutocompletion: true,
         enableSnippets: true,
         showLineNumbers: true,
-        tabSize: 4,
+        tabSize: 6,
       }}
       style={{ width: '100%', height: '500px', padding: '10px' }}
     />

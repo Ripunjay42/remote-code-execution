@@ -14,7 +14,7 @@ import { db } from '@/components/firebase/firebaseConfig';
 import Confetti from 'react-confetti';
 
 const JUDGE0_API_URL = 'https://judge0-ce.p.rapidapi.com';
-const JUDGE0_API_KEY = '32da8d1aecmshd7ff93dae736ddap1f4606jsne686ec2d3b3a'; // Replace with your actual API key
+const JUDGE0_API_KEY = '4b9982abf5msh9ff92f7a89614c8p10fceejsn6689b3ab6e07'; // Replace with your actual API key
 
 export default function ProblemPage() {
   const { id } = useParams();
@@ -34,6 +34,7 @@ export default function ProblemPage() {
   const [isSolved, setIsSolved] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0); // Key for refreshing TestCases
+  const [compilationError, setCompilationError] = useState(null); // State for compilation error
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -73,6 +74,7 @@ export default function ProblemPage() {
     setShowAuthMessage(false);
     setIsSubmitting(true);
     const results = [];
+    setCompilationError(null); // Reset compilation error
 
     for (let i = 0; i < problem.testCases.length; i++) {
       try {
@@ -141,6 +143,11 @@ export default function ProblemPage() {
             ),
         });
 
+        // Capture compilation errors
+        if (outputResult.status.id === 6) {
+          setCompilationError(outputResult.compile_output);
+        }
+
       } catch (error) {
         console.error('Error submitting code for test case:', error);
         results.push({
@@ -207,9 +214,7 @@ export default function ProblemPage() {
             <button
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className={`mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 ${
-                isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
+              className={`mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               {isSubmitting ? 'Submitting...' : 'Submit'}
             </button>
@@ -217,7 +222,12 @@ export default function ProblemPage() {
               <p className="mt-2 text-red-500">Please sign in to submit your code.</p>
             )}
             <div className="mt-4">
-              <TestCases key={refreshKey} testCases={problem.testCases} results={testResults} />
+              <TestCases 
+                key={refreshKey} 
+                testCases={problem.testCases} 
+                results={testResults} 
+                compilationError={compilationError} 
+              />
             </div>
           </div>
         </div>

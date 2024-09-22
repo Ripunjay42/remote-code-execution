@@ -17,3 +17,17 @@
     overflow-wrap: break-word; /* Break long words */
     word-wrap: break-word;     /* Fallback for older browsers */
   }
+
+  .ace_editor {
+    line-height: 1.5; /* Adjust line height */
+  }
+  
+  .ace_line {
+    position: relative; /* Ensures line numbers are not overlapped */
+  }
+  
+  .ace_gutter {
+    background-color: #272822; /* Match with editor background */
+    color: #f8f8f2; /* Color of the line numbers */
+  }
+  

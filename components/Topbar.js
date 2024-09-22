@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { User, List } from 'lucide-react'; // Importing the List icon
+import { User, List, PlayCircle } from 'lucide-react'; // Importing PlayCircle icon for Practice
 import { auth } from './firebase/firebaseConfig';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 
@@ -34,8 +34,16 @@ const Topbar = () => {
         Daily Code
       </Link>
 
-      <div className="flex items-center space-x-4">
-        {/* Centered Problems Link with Underline */}
+      {/* New Practice Link added next to Daily Code */}
+      <div className="flex items-center space-x-8"> {/* Increase space between the two links */}
+        <Link 
+          href="/practice" 
+          className="flex items-center text-violet-300 text-lg font-bold border-b-2 border-transparent transition duration-300"
+        >
+          <PlayCircle className="mr-1 h-5 w-5 text-violet-300" /> {/* Practice icon */}
+          Practice
+        </Link>
+        
         <Link 
           href="/" 
           className="flex items-center text-violet-300 text-lg font-bold border-b-2 border-transparent transition duration-300"
@@ -43,7 +51,9 @@ const Topbar = () => {
           <List className="mr-1 h-5 w-5 text-violet-300" /> {/* Problem icon */}
           Problems
         </Link>
+      </div>
 
+      <div className="flex items-center space-x-4">
         <div>
           {user ? (
             <div className="relative">
