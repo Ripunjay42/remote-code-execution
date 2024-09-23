@@ -28,10 +28,10 @@ const Navbar = ({ onLoginClick, onSignupClick, setIsLoginOpen }) => {
   };
 
   return (
-    <div className="flex items-center justify-between sm:px-12 px-2 md:px-24 h-16">
+    <div className="flex items-center justify-between sm:px-6 px-2 md:px-24 h-16">
       <Link href="/" className="flex items-center text-violet-300 text-lg font-bold">
         <img src="/logo.png" alt="Roj Code Logo" className="h-8 w-8 mr-2 pointer-events-none" /> {/* Adjust the path and size */}
-        Daily Code
+        DailyCode
       </Link>
       <div className="space-x-2">
         {user ? (

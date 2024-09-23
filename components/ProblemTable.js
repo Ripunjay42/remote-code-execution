@@ -51,16 +51,16 @@ export default function ProblemTable() {
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full max-w-5xl mx-auto border-collapse">
+      <table className="min-w-full max-w-4xl mx-auto border-collapse">
         <thead>
           <tr>
-            <th className="hidden md:table-cell px-6 py-3 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
+            <th className="hidden lg:table-cell px-4 py-2 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
               S/N
             </th>
-            <th className="px-6 py-3 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
+            <th className="px-4 py-2 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
               Problem
             </th>
-            <th className="px-6 py-3 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
+            <th className="px-4 py-2 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
               Difficulty
             </th>
             <th className="px-6 py-3 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
@@ -71,18 +71,18 @@ export default function ProblemTable() {
         <tbody>
           {problems.map((problem, index) => (
             <tr key={problem.id}>
-              <td className="hidden md:table-cell px-6 py-4 whitespace-no-wrap border border-gray-500">
+              <td className="hidden lg:table-cell text-sm px-4 py-2 whitespace-no-wrap border border-gray-500">
                 {index + 1} {/* Serial number */}
               </td>
-              <td className="px-6 py-4 whitespace-no-wrap border border-gray-500">
+              <td className="px-4 py-2 text-sm  whitespace-no-wrap border border-gray-500">
                 <Link href={`/problems/${problem.id}`} className="text-blue-400 hover:text-blue-500">
                   {problem.title}
                 </Link>
               </td>
-              <td className={`px-6 py-4 whitespace-no-wrap border border-gray-500 ${getDifficultyColor(problem.difficulty)}`}>
+              <td className={`px-4 py-2 text-sm   whitespace-no-wrap border border-gray-500 ${getDifficultyColor(problem.difficulty)}`}>
                 {problem.difficulty}
               </td>
-              <td className="px-6 py-4 whitespace-no-wrap border border-gray-500 text-center"> {/* Centered text */}
+              <td className="px-4 py-2 text-sm  whitespace-no-wrap border border-gray-500 text-center"> {/* Centered text */}
                 {solvedProblems[problem.id] ? (
                   <span className="text-green-600 font-extrabold flex items-center justify-center"> {/* Centered flex container */}
                     Solved

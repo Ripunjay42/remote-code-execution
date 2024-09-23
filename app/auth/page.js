@@ -61,7 +61,7 @@ const Authpage = () => {
   if (isLoading) return <Spinner />; // Show spinner while loading
 
   return (
-    <div className='bg-gradient-to-b from-gray-900 to-black min-h-screen relative'>
+    <div className='bg-gradient-to-b from-gray-900 to-black min-h-screen relative px-2'>
       <div className='max-w-7xl mx-auto'>
         <Navbar 
           onLoginClick={openLogin}

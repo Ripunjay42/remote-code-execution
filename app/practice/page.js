@@ -1,11 +1,19 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import Topbar from '@/components/Topbar';
 
 const JUDGE0_API_URL = 'https://judge0-ce.p.rapidapi.com';
-const JUDGE0_API_KEY = '4b9982abf5msh9ff92f7a89614c8p10fceejsn6689b3ab6e07';
+
+// Store all API keys in an array for rotation
+const apiKeys = [
+  process.env.NEXT_PUBLIC_JUDGE0_API_KEY_3,
+  process.env.NEXT_PUBLIC_JUDGE0_API_KEY_1,
+  process.env.NEXT_PUBLIC_JUDGE0_API_KEY_2,
+  process.env.NEXT_PUBLIC_JUDGE0_API_KEY_4,
+  process.env.NEXT_PUBLIC_JUDGE0_API_KEY_5,
+];
 
 const AceEditor = dynamic(
   async () => {
@@ -35,13 +43,13 @@ int main() {
         System.out.println("Hello, World!");
     }
 }` },
-  { label: 'Python', value: '71', mode: 'python', boilerplate: 
+  { label: 'Py', value: '71', mode: 'python', boilerplate: 
 `def main():
     print("Hello, World!")
 
 if __name__ == "__main__":
     main()` },
-  { label: 'JavaScript', value: '63', mode: 'javascript', boilerplate: 
+  { label: 'JS', value: '63', mode: 'javascript', boilerplate: 
 `function main() {
     console.log("Hello, World!");
 }
@@ -53,30 +61,37 @@ export default function CodeEditorPage() {
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
   const [compilationError, setCompilationError] = useState(null);
-  const [language, setLanguage] = useState(languageOptions[0]);
+  const [language, setLanguage] = useState(languageOptions[0]); // Default to C++
   const [mounted, setMounted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [debugInfo, setDebugInfo] = useState('');
+  const [currentApiKey, setCurrentApiKey] = useState(apiKeys[0]);
+  const apiKeyIndex = useRef(0);
 
   useEffect(() => {
     setMounted(true);
-    const savedCode = localStorage.getItem('code');
-    const savedLanguage = localStorage.getItem('language');
-    if (savedCode) {
-      setCode(savedCode);
-    } else {
-      setCode(languageOptions[0].boilerplate);
-    }
-    if (savedLanguage) {
-      setLanguage(languageOptions.find(lang => lang.value === savedLanguage) || languageOptions[0]);
-    }
+    // Set default language and boilerplate code
+    setLanguage(languageOptions[0]); // C++
+    setCode(languageOptions[0].boilerplate); // C++ boilerplate
+  }, []);
+
+  useEffect(() => {
+    const rotateKey = () => {
+      apiKeyIndex.current = (apiKeyIndex.current + 1) % apiKeys.length;
+      setCurrentApiKey(apiKeys[apiKeyIndex.current]);
+    };
+
+    const intervalId = setInterval(rotateKey, 3600000); // Rotate every hour (3600000 ms)
+    
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleLanguageChange = (event) => {
     const selectedLang = languageOptions.find(lang => lang.value === event.target.value);
     setLanguage(selectedLang);
-    setCode(selectedLang.boilerplate);
-    localStorage.setItem('language', selectedLang.value);
+    setCode(selectedLang.boilerplate); // Update to the selected language's boilerplate
+    setCompilationError(null);
+    setOutput(null);
   };
 
   const decodeBase64 = (str) => {
@@ -102,8 +117,6 @@ export default function CodeEditorPage() {
     setOutput('');
     setDebugInfo('');
   
-    localStorage.setItem('code', trimmedCode);
-  
     try {
       setDebugInfo(prevInfo => prevInfo + 'Submitting code...\n');
       
@@ -114,7 +127,7 @@ export default function CodeEditorPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-RapidAPI-Key': JUDGE0_API_KEY,
+          'X-RapidAPI-Key': currentApiKey,
         },
         body: JSON.stringify({
           source_code: useBase64 ? btoa(unescape(encodeURIComponent(trimmedCode))) : trimmedCode,
@@ -140,7 +153,7 @@ export default function CodeEditorPage() {
         setDebugInfo(prevInfo => prevInfo + `Fetching output (attempt ${attempts + 1})...\n`);
         const outputResponse = await fetch(`${JUDGE0_API_URL}/submissions/${token}${useBase64 ? '?base64_encoded=true' : ''}`, {
           headers: {
-            'X-RapidAPI-Key': JUDGE0_API_KEY,
+            'X-RapidAPI-Key': currentApiKey,
           },
         });
   
@@ -198,13 +211,13 @@ export default function CodeEditorPage() {
 
       <div className="max-w-5xl mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-4">
-          <div>
-            <label htmlFor="language" className="mr-2 text-white">Select Language:</label>
+          <div className='mt-4'>
+            <label htmlFor="language" className="mr-2 text-violet-300 font-bold text-md">Select Language:</label>
             <select
               id="language"
               value={language.value}
               onChange={handleLanguageChange}
-              className="bg-gray-900 text-white px-2 py-1 text-sm rounded"
+              className="bg-gray-900 text-white px-2 py-1 border border-white text-xs font-bold rounded"
             >
               {languageOptions.map((lang) => (
                 <option key={lang.value} value={lang.value}>
@@ -214,6 +227,7 @@ export default function CodeEditorPage() {
             </select>
           </div>
 
+          <div className="flex items-center mt-4">
           <button
             onClick={handleCompile}
             disabled={loading}
@@ -221,6 +235,12 @@ export default function CodeEditorPage() {
           >
             {loading ? 'Compiling...' : 'Run Code'}
           </button>
+          {loading && (
+                <div className="ml-2">
+                  <div className="w-4 h-4 border-t-2 border-r-2 border-red-500 rounded-full animate-spin"></div>
+                </div>
+              )}
+          </div>
         </div>
 
         <AceEditor

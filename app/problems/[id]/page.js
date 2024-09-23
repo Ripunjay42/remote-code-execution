@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ProblemDescription from '@/components/ProblemDescription';
 import CodeEditor from '@/components/CodeEditor';
 import TestCases from '@/components/TestCases';
@@ -14,12 +14,23 @@ import { db } from '@/components/firebase/firebaseConfig';
 import Confetti from 'react-confetti';
 
 const JUDGE0_API_URL = 'https://judge0-ce.p.rapidapi.com';
-const JUDGE0_API_KEY = '4b9982abf5msh9ff92f7a89614c8p10fceejsn6689b3ab6e07'; // Replace with your actual API key
 
 export default function ProblemPage() {
   const { id } = useParams();
   const problem = problems.find((p) => p.id === id);
-  
+
+  // Hold all API keys in an array and rotate them every hour
+  const apiKeys = [
+    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_3,
+    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_2,
+    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_1,
+    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_4,
+    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_5,
+  ];
+
+  const [currentApiKey, setCurrentApiKey] = useState(apiKeys[0]);
+  const apiKeyIndex = useRef(0);
+
   const [code, setCode] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem(`code_${id}`) || (problem?.starterCode || '');
@@ -33,13 +44,12 @@ export default function ProblemPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSolved, setIsSolved] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [refreshKey, setRefreshKey] = useState(0); // Key for refreshing TestCases
-  const [compilationError, setCompilationError] = useState(null); // State for compilation error
+  const [compilationError, setCompilationError] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      
+
       if (currentUser) {
         const docRef = doc(db, 'users', currentUser.uid, 'solvedProblems', problem.id);
         const docSnap = await getDoc(docRef);
@@ -50,8 +60,8 @@ export default function ProblemPage() {
         }
       } else {
         setIsSolved(false);
-        setTestResults([]); // Clear results on sign-out
-        setRefreshKey(prev => prev + 1); // Change the key to refresh TestCases
+        setTestResults([]);
+        setCompilationError(null);
       }
     });
 
@@ -64,6 +74,18 @@ export default function ProblemPage() {
     }
   }, [code, id]);
 
+  // Set up the key rotation every hour (3600000 ms)
+  useEffect(() => {
+    const rotateKey = () => {
+      apiKeyIndex.current = (apiKeyIndex.current + 1) % apiKeys.length;
+      setCurrentApiKey(apiKeys[apiKeyIndex.current]);
+    };
+
+    const intervalId = setInterval(rotateKey, 3600000); // Rotate every hour
+
+    return () => clearInterval(intervalId); // Clean up on component unmount
+  }, [apiKeys]);
+
   const handleSubmit = async () => {
     if (!user) {
       setShowAuthMessage(true);
@@ -73,10 +95,15 @@ export default function ProblemPage() {
 
     setShowAuthMessage(false);
     setIsSubmitting(true);
-    const results = [];
-    setCompilationError(null); // Reset compilation error
+    setTestResults([]);
+    setCompilationError(null);
+
+    let allPassed = true;
+    let hasStoppedCompiling = false;
 
     for (let i = 0; i < problem.testCases.length; i++) {
+      if (hasStoppedCompiling) break;
+
       try {
         const testCase = problem.testCases[i];
         const { input, expectedOutput } = testCase;
@@ -96,14 +123,14 @@ export default function ProblemPage() {
         }
 
         // Submit code to Judge0 API
-        const submissionResponse = await fetch(`${JUDGE0_API_URL}/submissions`, {
+        const submissionResponse = await fetch(`${JUDGE0_API_URL}/submissions?base64_encoded=true`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'X-RapidAPI-Key': JUDGE0_API_KEY,
+            'X-RapidAPI-Key': currentApiKey,
           },
           body: JSON.stringify({
-            source_code: fullCode,
+            source_code: btoa(fullCode),
             language_id: 54, // C++ (GCC 9.2.0)
             stdin: '',
           }),
@@ -115,22 +142,22 @@ export default function ProblemPage() {
         // Poll for results
         let outputResult;
         while (true) {
-          await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for 1 second
+          await new Promise(resolve => setTimeout(resolve, 1000));
 
-          const outputResponse = await fetch(`${JUDGE0_API_URL}/submissions/${token}`, {
+          const outputResponse = await fetch(`${JUDGE0_API_URL}/submissions/${token}?base64_encoded=true`, {
             headers: {
-              'X-RapidAPI-Key': JUDGE0_API_KEY,
+              'X-RapidAPI-Key': currentApiKey,
             },
           });
 
           outputResult = await outputResponse.json();
 
           if (outputResult.status.id !== 1 && outputResult.status.id !== 2) {
-            break; // Compilation and execution finished
+            break;
           }
         }
 
-        results.push({
+        const testResult = {
           input: testCase.input,
           expected: expectedOutput,
           output: outputResult.stdout,
@@ -139,26 +166,35 @@ export default function ProblemPage() {
           compile_output: outputResult.compile_output,
           passed: outputResult.status.id === 3 && 
             expectedOutput.split('|').some(expected => 
-              outputResult.stdout.trim() === expected.trim()
+              atob(outputResult.stdout).trim() === expected.trim()
             ),
-        });
+        };
 
-        // Capture compilation errors
+        setTestResults(prevResults => [...prevResults, testResult]);
+
         if (outputResult.status.id === 6) {
           setCompilationError(outputResult.compile_output);
+          hasStoppedCompiling = true;
+        }
+
+        if (!testResult.passed) {
+          allPassed = false;
         }
 
       } catch (error) {
         console.error('Error submitting code for test case:', error);
-        results.push({
-          input: problem.testCases[i].input,
-          error: 'Submission failed',
-          passed: false,
-        });
+        setTestResults(prevResults => [
+          ...prevResults,
+          {
+            input: problem.testCases[i].input,
+            error: 'Submission failed',
+            passed: false,
+          }
+        ]);
+        allPassed = false;
       }
     }
 
-    const allPassed = results.every(result => result.passed);
     if (allPassed) {
       await setDoc(doc(db, 'users', user.uid, 'solvedProblems', problem.id), {
         solved: true,
@@ -171,7 +207,6 @@ export default function ProblemPage() {
       }, 6000);
     }
 
-    setTestResults(results);
     setIsSubmitting(false);
   };
 
@@ -211,19 +246,25 @@ export default function ProblemPage() {
           <div className="w-full md:w-1/2 border-spacing-2 border-2 p-3">
             <div className="text-center text-lg font-bold text-white mb-0">C++</div>
             <CodeEditor code={code} onChange={setCode} />
+            <div className="flex items-center mt-4">
             <button
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className={`mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-600 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               {isSubmitting ? 'Submitting...' : 'Submit'}
             </button>
+            {isSubmitting && (
+                <div className="ml-2">
+                  <div className="w-4 h-4 border-t-2 border-r-2 border-red-500 rounded-full animate-spin"></div>
+                </div>
+              )}
+            </div>
             {showAuthMessage && (
               <p className="mt-2 text-red-500">Please sign in to submit your code.</p>
             )}
             <div className="mt-4">
               <TestCases 
-                key={refreshKey} 
                 testCases={problem.testCases} 
                 results={testResults} 
                 compilationError={compilationError} 
