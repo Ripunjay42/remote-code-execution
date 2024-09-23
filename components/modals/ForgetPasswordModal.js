@@ -46,9 +46,9 @@ const ForgotPasswordModal = ({ isOpen, onClose }) => {
         </form>
         {error && <p className="text-red-500 mt-2">{error}</p>}
         {message && <p className="text-green-500 mt-2">{message}</p>}
-        <button onClick={onClose} className="mt-4 text-sm text-cyan-300">
+        {/* <button onClick={onClose} className="mt-4 text-sm text-cyan-300">
           Close
-        </button>
+        </button> */}
       </div>
     </div>
   );

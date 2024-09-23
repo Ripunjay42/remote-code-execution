@@ -67,9 +67,9 @@ const SignupModal = ({ isOpen, onClose, onLoginClick }) => {
             </button>
           </p>
         </div>
-        <button onClick={onClose} className="mt-4 text-sm text-cyan-300 hover:underline">
+        {/* <button onClick={onClose} className="mt-4 text-sm text-cyan-300 hover:underline">
           Close
-        </button>
+        </button> */}
       </div>
     </div>
   );
