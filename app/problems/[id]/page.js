@@ -45,6 +45,22 @@ export default function ProblemPage() {
   const [isSolved, setIsSolved] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [compilationError, setCompilationError] = useState(null);
+  const [windowDimension, setWindowDimension] = useState({ width: 0, height: 0 });
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowDimension({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -114,18 +130,30 @@ export default function ProblemPage() {
         if (problem.id === 'twoSum') {
           const [nums, target] = parseTwoSumInput(input);
           fullCode = fullCode.replace('INPUT_VALUES', nums).replace('TARGET_VALUE', target);
-        } else if (problem.id === 'validParentheses') {
+        } 
+        else if (problem.id === 'validParentheses') {
           const inputString = parseStringInput(input);
           fullCode = fullCode.replace('INPUT_STRING', inputString);
-        } else if (problem.id === 'addBinary') {
+        } 
+        else if (problem.id === 'addBinary') {
           const [a, b] = parseAddBinaryInput(input);
           fullCode = fullCode.replace('A_VALUE', a).replace('B_VALUE', b);
-        }else if (problem.id === 'medianOfTwoSortedArrays') {
+        }
+        else if (problem.id === 'medianOfTwoSortedArrays') {
           const [nums1, nums2] = parseMedianOfTwoSortedArraysInput(input);
           fullCode = fullCode.replace('NUMS1_VALUES', nums1).replace('NUMS2_VALUES', nums2);
-        } else if (problem.id === 'reverseInteger') {
+        }
+         else if (problem.id === 'reverseInteger') {
           const x = parseReverseIntegerInput(input);
           fullCode = fullCode.replace('INPUT_VALUE', x);
+        }
+         else if (problem.id === 'palindromeNumber') {
+          const x = parsePalindromeNumberInput(input);
+          fullCode = fullCode.replace('INPUT_VALUE', x);
+        }
+        else if (problem.id === 'longestValidParentheses') {
+          const s = parseStringInput(input);  // Parsing input for parentheses string
+          fullCode = fullCode.replace('INPUT_STRING', s);
         }
 
         // Submit code to Judge0 API
@@ -252,13 +280,24 @@ export default function ProblemPage() {
     return match ? match[1] : "";
   };
 
+  const parsePalindromeNumberInput = (input) => {
+    const match = input.match(/x = (-?\d+)/);
+    return match ? match[1] : "";
+  };
+
   if (!problem) return <div>Problem not found</div>;
 
   return (
     <div className="bg-gradient-to-b from-gray-900 to-black min-h-screen relative px-4">
       <div className="max-w-7xl mx-auto">
         <Topbar />
-        {showConfetti && <Confetti />}
+        {showConfetti && (<Confetti
+            width={windowDimension.width}
+            height={windowDimension.height}
+            recycle={true}
+            numberOfPieces={240}
+            style={{ position: 'fixed', top: 0, left: 0, zIndex: 1000 }}
+          />)}
         <div className="flex flex-col md:flex-row gap-4 mt-10">
           <div className="w-full md:w-1/2 p-4 border-spacing-2 border-2">
             <ProblemDescription problem={problem} isSolved={isSolved} />

@@ -51,7 +51,7 @@ export default function ProblemTable() {
   };
 
   return (
-    <div className="overflow-x-auto max-h-[420px] md:max-h-[500px] overflow-y-auto border border-violet-300 rounded p-2 custom-scrollbar">
+    <div className="overflow-x-auto max-h-[450px] md:max-h-[500px] overflow-y-auto border border-violet-300 rounded p-2 custom-scrollbar">
       <style jsx>{`
         .custom-scrollbar::-webkit-scrollbar {
           width: 6px;
