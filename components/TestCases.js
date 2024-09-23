@@ -37,7 +37,23 @@ export default function TestCases({ testCases, results, compilationError }) {
         </div>
       )}
 
-      <div className="max-h-56 overflow-y-auto border border-gray-700 rounded p-2">
+      <div className="max-h-56 overflow-y-auto border border-gray-700 rounded p-2 custom-scrollbar">
+      <style jsx>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+          height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: #1a1a1a;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #888;
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #555;
+        }
+      `}</style>
         {testCases.map((testCase, index) => (
           <div key={index} className="mb-4 p-4 border border-gray-600 rounded text-white text-sm">
             <p><strong>Test Case {index + 1}</strong></p>

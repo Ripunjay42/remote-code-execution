@@ -40,7 +40,7 @@ const ForgotPasswordModal = ({ isOpen, onClose }) => {
             className="w-full p-1 border rounded text-md"
             required
           />
-          <button type="submit" className="w-full bg-blue-600 text-white font-bold p-1 rounded">
+          <button type="submit" className="w-full bg-blue-600 text-white text-sm font-bold p-1 rounded">
             Send Reset Link
           </button>
         </form>

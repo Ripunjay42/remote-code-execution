@@ -81,7 +81,7 @@ export default function ProblemPage() {
       setCurrentApiKey(apiKeys[apiKeyIndex.current]);
     };
 
-    const intervalId = setInterval(rotateKey, 3600000); // Rotate every hour
+    const intervalId = setInterval(rotateKey, 3600000); // Rotate every 10mins
 
     return () => clearInterval(intervalId); // Clean up on component unmount
   }, [apiKeys]);

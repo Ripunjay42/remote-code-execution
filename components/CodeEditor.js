@@ -21,6 +21,23 @@ export default function CodeEditor({ code, onChange }) {
   if (!mounted) return null;
 
   return (
+    <div className="custom-ace-editor">
+    <style jsx global>{`
+      .custom-ace-editor .ace_scrollbar::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      .custom-ace-editor .ace_scrollbar::-webkit-scrollbar-track {
+        background: #1a1a1a;
+      }
+      .custom-ace-editor .ace_scrollbar::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+      }
+      .custom-ace-editor .ace_scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+    `}</style>
     <AceEditor
       mode="c_cpp"
       theme="monokai"
@@ -37,5 +54,6 @@ export default function CodeEditor({ code, onChange }) {
       }}
       style={{ width: '100%', height: '500px', padding: '10px' }}
     />
+  </div>
   );
 }

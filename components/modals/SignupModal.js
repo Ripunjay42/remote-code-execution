@@ -55,7 +55,7 @@ const SignupModal = ({ isOpen, onClose, onLoginClick }) => {
             className="w-full p-1 border rounded text-md"
             required
           />
-          <button type="submit" className="w-full bg-green-600 text-white font-bold p-1 rounded hover:bg-green-700">
+          <button type="submit" className="w-full bg-green-800 text-white text-sm font-bold p-1 rounded hover:bg-green-700">
             Sign Up
           </button>
         </form>

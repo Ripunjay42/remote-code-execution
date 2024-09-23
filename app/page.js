@@ -10,20 +10,20 @@ const page = () => {
         <Topbar />
         <div className='text-center text-white mt-28'>
           <h1 className='text-4xl text-violet-300 font-extrabold mb-8'>
-            Welcome to Coding Challenges
+            Coding Challenges
           </h1>
           <div className='flex justify-center space-x-4 mb-8'>
             <div className='flex flex-col items-center'>
               <FaLaptopCode className='text-6xl' />
-              <span className='mt-2 text-lg'>Develop</span>
+      
             </div>
             <div className='flex flex-col items-center'>
               <FaCode className='text-6xl' />
-              <span className='mt-2 text-lg'>Code</span>
+            
             </div>
             <div className='flex flex-col items-center'>
               <FaCoffee className='text-6xl' />
-              <span className='mt-2 text-lg'>Coffee</span>
+              
             </div>
           </div>
           <div className='max-w-3xl mx-auto'>

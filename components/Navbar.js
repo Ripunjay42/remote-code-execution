@@ -1,62 +1,137 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { User, List, PlayCircle, Menu, X } from 'lucide-react';
 import { auth } from './firebase/firebaseConfig';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 
 const Navbar = ({ onLoginClick, onSignupClick, setIsLoginOpen }) => {
   const [user, setUser] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Listen for auth state changes to detect if the user is logged in
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser); // Set the user state
+      setUser(currentUser);
     });
 
-    // Cleanup the listener on unmount
     return () => unsubscribe();
   }, []);
 
   const handleLogout = async () => {
     try {
-      await signOut(auth); // Log out the user
-      setUser(null); // Clear user state
+      await signOut(auth);
+      setUser(null);
       setIsLoginOpen(true);
     } catch (error) {
       console.error('Error logging out:', error);
     }
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <div className="flex items-center justify-between sm:px-6 px-2 md:px-24 h-16">
+    <div className="relative">
+      <div className="flex items-center justify-between sm:px-6 px-2 md:px-24 h-16">
       <Link href="/" className="flex items-center text-violet-300 text-lg font-bold">
-        <img src="/logo.png" alt="Roj Code Logo" className="h-8 w-8 mr-2 pointer-events-none" /> {/* Adjust the path and size */}
-        DailyCode
-      </Link>
-      <div className="space-x-2">
-        {user ? (
-          // Show "Log Out" button if the user is logged in
-          <button onClick={handleLogout} className="bg-violet-600 hover:bg-violet-700 text-white text-sm font-bold py-1 px-3 rounded">
-            Sign Out
+          <img src="/logo.png" alt="Roj Code Logo" className="h-8 w-8 mr-2 pointer-events-none" />
+          DailyCode
+        </Link>
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex space-x-8">
+          <Link 
+            href="/" 
+            className="flex items-center text-violet-300 text-lg font-bold"
+          >
+            <List className="mr-1 h-5 w-5 text-violet-300" />
+            Problems
+          </Link>
+          <Link 
+            href="/practice" 
+            className="flex items-center text-violet-300 text-lg font-bold"
+          >
+            <PlayCircle className="mr-1 h-5 w-5 text-violet-300" />
+            Practice
+          </Link>
+        </div>
+
+        {/* Desktop Auth Buttons */}
+        <div className="hidden md:flex space-x-2">
+          {user ? (
+            <button onClick={handleLogout} className="bg-violet-600 hover:bg-violet-700 text-white text-sm font-bold py-1 px-3 rounded">
+              Sign Out
+            </button>
+          ) : (
+            <>
+              <button
+                onClick={onLoginClick}
+                className="bg-violet-800 hover:bg-violet-900 text-white text-sm font-bold py-1 px-3 rounded"
+              >
+                Sign In
+              </button>
+              <button
+                onClick={onSignupClick}
+                className="bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-bold py-1 px-3 rounded"
+              >
+                Create Account
+              </button>
+            </>
+          )}
+        </div>
+
+        {/* Mobile Menu Button */}
+        <div className="md:hidden flex items-center">
+          <button onClick={toggleMenu} className="text-violet-300 mr-2">
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
-        ) : (
-          // Show "Log In" and "Create Account" buttons if the user is not logged in
-          <>
-            <button
-              onClick={onLoginClick}
-              className="bg-violet-800 hover:bg-violet-900 text-white text-sm font-bold py-1 px-3 rounded"
-            >
-              Sign In
-            </button>
-            <button
-              onClick={onSignupClick}
-              className="bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-bold py-1 px-3 rounded"
-            >
-              Create Account
-            </button>
-          </>
-        )}
+        </div>
       </div>
+
+      {/* Mobile Navigation Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden absolute top-16 left-0 w-full bg-black shadow-lg py-2 z-10">
+          <Link 
+            href="/" 
+            className="block px-4 py-2 text-violet-300 text-lg font-bold"
+            onClick={toggleMenu}
+          >
+            <List className="inline-block mr-2 h-5 w-5 text-violet-300" />
+            Problems
+          </Link>
+          <Link 
+            href="/practice" 
+            className="block px-4 py-2 text-violet-300 text-lg font-bold"
+            onClick={toggleMenu}
+          >
+            <PlayCircle className="inline-block mr-2 h-5 w-5 text-violet-300" />
+            Practice
+          </Link>
+          {user ? (
+            <button 
+              onClick={() => { handleLogout(); toggleMenu(); }}
+              className="block w-full text-left px-4 py-2 text-violet-300 text-lg font-bold"
+            >
+              Sign Out
+            </button>
+          ) : (
+            <>
+              <button
+                onClick={() => { onLoginClick(); toggleMenu(); }}
+                className="block w-full text-left px-4 py-2 text-violet-300 text-lg font-bold"
+              >
+                Sign In
+              </button>
+              <button
+                onClick={() => { onSignupClick(); toggleMenu(); }}
+                className="block w-full text-left px-4 py-2 text-violet-300 text-lg font-bold"
+              >
+                Create Account
+              </button>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };

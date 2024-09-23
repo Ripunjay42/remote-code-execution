@@ -9,8 +9,8 @@ const JUDGE0_API_URL = 'https://judge0-ce.p.rapidapi.com';
 // Store all API keys in an array for rotation
 const apiKeys = [
   process.env.NEXT_PUBLIC_JUDGE0_API_KEY_3,
-  process.env.NEXT_PUBLIC_JUDGE0_API_KEY_1,
   process.env.NEXT_PUBLIC_JUDGE0_API_KEY_2,
+  process.env.NEXT_PUBLIC_JUDGE0_API_KEY_1,
   process.env.NEXT_PUBLIC_JUDGE0_API_KEY_4,
   process.env.NEXT_PUBLIC_JUDGE0_API_KEY_5,
 ];
@@ -81,7 +81,7 @@ export default function CodeEditorPage() {
       setCurrentApiKey(apiKeys[apiKeyIndex.current]);
     };
 
-    const intervalId = setInterval(rotateKey, 3600000); // Rotate every hour (3600000 ms)
+    const intervalId = setInterval(rotateKey, 600000); // Rotate every 10 mins (600000 ms)
     
     return () => clearInterval(intervalId);
   }, []);
@@ -212,7 +212,7 @@ export default function CodeEditorPage() {
       <div className="max-w-5xl mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-4">
           <div className='mt-4'>
-            <label htmlFor="language" className="mr-2 text-violet-300 font-bold text-md">Select Language:</label>
+            <label htmlFor="language" className="mr-2 text-violet-300 font-bold text-md">Language:</label>
             <select
               id="language"
               value={language.value}
@@ -242,7 +242,24 @@ export default function CodeEditorPage() {
               )}
           </div>
         </div>
-
+        
+        <div className="custom-ace-editor">
+        <style jsx global>{`
+      .custom-ace-editor .ace_scrollbar::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      .custom-ace-editor .ace_scrollbar::-webkit-scrollbar-track {
+        background: #1a1a1a;
+      }
+      .custom-ace-editor .ace_scrollbar::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+      }
+      .custom-ace-editor .ace_scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+      `}</style>
         <AceEditor
           mode={language.mode}
           theme="monokai"
@@ -259,6 +276,7 @@ export default function CodeEditorPage() {
           }}
           style={{ width: '100%', height: '400px', padding: '10px' }}
         />
+        </div>
 
         <div className="mt-8">
           {compilationError && (
@@ -268,7 +286,24 @@ export default function CodeEditorPage() {
             </div>
           )}
           <h2 className="text-lg font-bold mb-2 text-white">Output:</h2>
-          <pre className="bg-gray-800 p-4 rounded h-48 overflow-auto text-white">{output || 'No output yet'}</pre>
+          <pre className="bg-gray-800 p-4 rounded h-48 overflow-auto custom-scrollbar text-white">{output || 'No output yet'}
+          <style jsx>{`
+            .custom-scrollbar::-webkit-scrollbar {
+              width: 6px;
+              height: 6px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-track {
+              background: #1a1a1a;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb {
+              background: #888;
+              border-radius: 4px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+              background: #555;
+            }
+          `}</style>
+          </pre>
         </div>
       </div>
     </div>

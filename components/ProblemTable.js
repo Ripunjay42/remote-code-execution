@@ -41,7 +41,7 @@ export default function ProblemTable() {
       case 'Easy':
         return 'text-green-500'; // Green color for Easy
       case 'Medium':
-        return 'text-blue-500'; // Blue color for Medium
+        return 'text-yellow-500'; // Blue color for Medium
       case 'Hard':
         return 'text-red-500'; // Red color for Hard
       default:
@@ -50,7 +50,23 @@ export default function ProblemTable() {
   };
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto max-h-[420px] md:max-h-[500px] overflow-y-auto border border-violet-300 rounded p-2 custom-scrollbar">
+      <style jsx>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+          height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: #1a1a1a;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #888;
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #555;
+        }
+      `}</style>
       <table className="min-w-full max-w-4xl mx-auto border-collapse">
         <thead>
           <tr>
@@ -63,7 +79,7 @@ export default function ProblemTable() {
             <th className="px-4 py-2 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
               Difficulty
             </th>
-            <th className="px-6 py-3 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
+            <th className="px-4 py-2 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
               Status
             </th>
           </tr>
