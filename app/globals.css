@@ -31,3 +31,75 @@
     color: #f8f8f2; /* Color of the line numbers */
   }
   
+
+  /* Add this to your global CSS file */
+.pulsing-text {
+  animation: pulseText 2s ease-in-out infinite;
+}
+
+@keyframes pulseText {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1); /* Adjust the scale factor for more or less size change */
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Firecracker Effect */
+@keyframes burst {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+.firework {
+  position: absolute;
+  top: 5%;
+  width: 15px;
+  height: 15px;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: 
+    0 0 15px 5px rgba(27, 210, 223, 0.753), 
+    0 0 20px 10px rgba(20, 123, 219, 0.897);
+  animation: burst 3s ease-in-out infinite;
+}
+
+.firework-left {
+  left: 10%; /* Place it exactly to the left of the text */
+  animation-delay: 0s;
+}
+
+.firework-right {
+  right: 10%; /* Place it exactly to the right of the text */
+  animation-delay: 0.3s;
+}
+
+/* Additional Tweaks for pulsing text */
+.pulsing-text {
+  animation: textPulse 2s ease-in-out infinite;
+}
+
+@keyframes textPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+

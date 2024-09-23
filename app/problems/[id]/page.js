@@ -21,10 +21,10 @@ export default function ProblemPage() {
 
   // Hold all API keys in an array and rotate them every hour
   const apiKeys = [
+    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_4,
     process.env.NEXT_PUBLIC_JUDGE0_API_KEY_3,
     process.env.NEXT_PUBLIC_JUDGE0_API_KEY_2,
     process.env.NEXT_PUBLIC_JUDGE0_API_KEY_1,
-    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_4,
     process.env.NEXT_PUBLIC_JUDGE0_API_KEY_5,
   ];
 
@@ -309,7 +309,7 @@ export default function ProblemPage() {
             <button
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className={`px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-600 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`px-3 py-1 bg-violet-600 hover:bg-violet-900 text-white text-sm font-bold rounded  ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               {isSubmitting ? 'Submitting...' : 'Submit'}
             </button>

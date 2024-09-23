@@ -7,6 +7,7 @@ const LoginModal = ({ isOpen, onClose, onCreateAccountClick, onForgotPasswordCli
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // Loading state
   const router = useRouter(); // useRouter from next/navigation
 
   // Function to display more user-friendly error messages
@@ -30,6 +31,7 @@ const LoginModal = ({ isOpen, onClose, onCreateAccountClick, onForgotPasswordCli
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true); // Set loading to true
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -37,9 +39,10 @@ const LoginModal = ({ isOpen, onClose, onCreateAccountClick, onForgotPasswordCli
       router.push('/'); // Redirect to home page
     } catch (error) {
       console.error('Login error:', error); // Log the error to inspect the structure
-
       const errorCode = error.code ? error.code : 'default';
       setError(handleAuthError(errorCode));
+    } finally {
+      setIsLoading(false); // Stop loading regardless of success or failure
     }
   };
 
@@ -48,7 +51,7 @@ const LoginModal = ({ isOpen, onClose, onCreateAccountClick, onForgotPasswordCli
   return (
     <div className="bg-transparent flex justify-center items-center">
       <div className="bg-gradient-to-b from-gray-900 to-gray-800 p-8 rounded-lg max-w-xs sm:max-w-md w-96">
-        <h2 className="text-2xl  text-violet-300 font-bold mb-4">Sign In</h2>
+        <h2 className="text-2xl text-violet-300 font-bold mb-4">Sign In</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
@@ -66,8 +69,8 @@ const LoginModal = ({ isOpen, onClose, onCreateAccountClick, onForgotPasswordCli
             className="w-full p-1 border rounded text-md"
             required
           />
-          <button type="submit" className="w-full bg-blue-600 text-white text-sm font-bold p-1 rounded hover:bg-blue-700">
-            Log In
+          <button type="submit" className="w-full bg-blue-600 text-white text-sm font-bold p-1 rounded hover:bg-blue-700" disabled={isLoading}>
+            {isLoading ? 'Logging in...' : 'Log In'}
           </button>
         </form>
         {error && <p className="text-red-500 mt-2">{error}</p>}
@@ -79,9 +82,6 @@ const LoginModal = ({ isOpen, onClose, onCreateAccountClick, onForgotPasswordCli
             Forgot Password?
           </button>
         </div>
-        {/* <button onClick={onClose} className="mt-4 text-sm text-cyan-300 hover:underline">
-          Close
-        </button> */}
       </div>
     </div>
   );

@@ -1,9 +1,10 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { User, List, PlayCircle, Menu, X } from 'lucide-react';
+import { User, List, PlayCircle, Menu, X} from 'lucide-react';
 import { auth } from './firebase/firebaseConfig';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
+import { FaUserPlus, FaSignInAlt } from 'react-icons/fa';
 
 const Navbar = ({ onLoginClick, onSignupClick, setIsLoginOpen }) => {
   const [user, setUser] = useState(null);
@@ -66,14 +67,17 @@ const Navbar = ({ onLoginClick, onSignupClick, setIsLoginOpen }) => {
             <>
               <button
                 onClick={onLoginClick}
-                className="bg-violet-800 hover:bg-violet-900 text-white text-sm font-bold py-1 px-3 rounded"
+                className="flex items-center bg-violet-800 hover:bg-violet-900 text-white text-sm font-bold py-1 px-3 rounded"
               >
+                <FaSignInAlt className='mr-1' />
+                
                 Sign In
               </button>
               <button
                 onClick={onSignupClick}
-                className="bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-bold py-1 px-3 rounded"
+                className="flex items-center bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-bold py-1 px-3 rounded"
               >
+                <FaUserPlus className='mr-1' />
                 Create Account
               </button>
             </>
@@ -112,20 +116,23 @@ const Navbar = ({ onLoginClick, onSignupClick, setIsLoginOpen }) => {
               onClick={() => { handleLogout(); toggleMenu(); }}
               className="block w-full text-left px-4 py-2 text-violet-300 text-lg font-bold"
             >
+               
               Sign Out
             </button>
           ) : (
             <>
               <button
                 onClick={() => { onLoginClick(); toggleMenu(); }}
-                className="block w-full text-left px-4 py-2 text-violet-300 text-lg font-bold"
+                className=" flex items-center w-full text-left px-4 py-2 text-violet-300 text-lg font-bold"
               >
+                <FaSignInAlt className='mr-1' />
                 Sign In
               </button>
               <button
                 onClick={() => { onSignupClick(); toggleMenu(); }}
-                className="block w-full text-left px-4 py-2 text-violet-300 text-lg font-bold"
+                className="flex items-center w-full text-left px-4 py-2 text-violet-300 text-lg font-bold"
               >
+                <FaUserPlus className='mr-1' />
                 Create Account
               </button>
             </>

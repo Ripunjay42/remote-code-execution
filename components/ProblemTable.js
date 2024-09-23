@@ -6,7 +6,7 @@ import { auth } from '@/components/firebase/firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db } from '@/components/firebase/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, ListOrdered, BarChart, CheckCircle } from 'lucide-react';
 
 export default function ProblemTable() {
   const [solvedProblems, setSolvedProblems] = useState({});
@@ -72,16 +72,28 @@ export default function ProblemTable() {
         <thead>
           <tr>
             <th className="hidden lg:table-cell px-4 py-2 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
-              S/N
+              <div className="flex items-center justify-center space-x-1">
+                <span>S/N</span>
+                <ListOrdered className="w-4 h-4 text-white font-extrabold" /> {/* Icon for S/N */}
+              </div>
             </th>
             <th className="px-4 py-2 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
-              Problem
+              <div className="flex items-center justify-center space-x-1">
+                <span>Problem</span>
+                <ExternalLink className="w-4 h-4 text-white font-extrabold" /> {/* Icon for Problem */}
+              </div>
             </th>
             <th className="px-4 py-2 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
-              Difficulty
+              <div className="flex items-center justify-center space-x-1">
+                <span>Difficulty</span>
+                <BarChart className="w-4 h-4 text-white font-extrabold" /> {/* Icon for Difficulty */}
+              </div>
             </th>
             <th className="px-4 py-2 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
-              Status
+              <div className="flex items-center justify-center space-x-1">
+                <span>Status</span>
+                <CheckCircle className="w-4 h-4 text-white font-extrabold" /> {/* Icon for Status */}
+              </div>
             </th>
           </tr>
         </thead>
@@ -94,7 +106,7 @@ export default function ProblemTable() {
               <td className="px-4 py-2 text-sm whitespace-no-wrap border border-gray-500">
                 <Link href={`/problems/${problem.id}`} className="text-blue-400 hover:text-blue-500 flex items-center justify-between">
                   {problem.title}
-                  <ExternalLink className="w-4 h-4 ml-2" />
+                  <ExternalLink className="w-4 h-4 ml-2 text-white" />
                 </Link>
               </td>
               <td className={`px-4 py-2 text-sm whitespace-no-wrap border border-gray-500 ${getDifficultyColor(problem.difficulty)}`}>

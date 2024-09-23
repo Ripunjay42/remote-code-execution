@@ -7,6 +7,7 @@ const SignupModal = ({ isOpen, onClose, onLoginClick }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // Loading state
   const router = useRouter();
 
   const cleanFirebaseError = (message) => {
@@ -17,10 +18,11 @@ const SignupModal = ({ isOpen, onClose, onLoginClick }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true); // Set loading to true
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      onClose();
-      router.push('/');
+      onClose(); // Close the modal if sign-up is successful
+      router.push('/'); // Redirect to home page
     } catch (error) {
       // Check for specific Firebase error codes and handle them
       if (error.code === 'auth/email-already-in-use') {
@@ -28,6 +30,8 @@ const SignupModal = ({ isOpen, onClose, onLoginClick }) => {
       } else {
         setError(cleanFirebaseError(error.message));
       }
+    } finally {
+      setIsLoading(false); // Stop loading regardless of success or failure
     }
   };
   
@@ -55,8 +59,8 @@ const SignupModal = ({ isOpen, onClose, onLoginClick }) => {
             className="w-full p-1 border rounded text-md"
             required
           />
-          <button type="submit" className="w-full bg-green-800 text-white text-sm font-bold p-1 rounded hover:bg-green-700">
-            Sign Up
+          <button type="submit" className="w-full bg-green-800 text-white text-sm font-bold p-1 rounded hover:bg-green-700" disabled={isLoading}>
+            {isLoading ? 'Signing up...' : 'Sign Up'}
           </button>
         </form>
         {error && <p className="text-red-500 mt-2">{error}</p>}
@@ -67,9 +71,6 @@ const SignupModal = ({ isOpen, onClose, onLoginClick }) => {
             </button>
           </p>
         </div>
-        {/* <button onClick={onClose} className="mt-4 text-sm text-cyan-300 hover:underline">
-          Close
-        </button> */}
       </div>
     </div>
   );
