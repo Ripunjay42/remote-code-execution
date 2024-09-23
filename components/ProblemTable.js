@@ -6,6 +6,7 @@ import { auth } from '@/components/firebase/firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db } from '@/components/firebase/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
+import { ExternalLink } from 'lucide-react';
 
 export default function ProblemTable() {
   const [solvedProblems, setSolvedProblems] = useState({});
@@ -90,17 +91,18 @@ export default function ProblemTable() {
               <td className="hidden lg:table-cell text-sm px-4 py-2 whitespace-no-wrap border border-gray-500">
                 {index + 1} {/* Serial number */}
               </td>
-              <td className="px-4 py-2 text-sm  whitespace-no-wrap border border-gray-500">
-                <Link href={`/problems/${problem.id}`} className="text-blue-400 hover:text-blue-500">
+              <td className="px-4 py-2 text-sm whitespace-no-wrap border border-gray-500">
+                <Link href={`/problems/${problem.id}`} className="text-blue-400 hover:text-blue-500 flex items-center justify-between">
                   {problem.title}
+                  <ExternalLink className="w-4 h-4 ml-2" />
                 </Link>
               </td>
-              <td className={`px-4 py-2 text-sm   whitespace-no-wrap border border-gray-500 ${getDifficultyColor(problem.difficulty)}`}>
+              <td className={`px-4 py-2 text-sm whitespace-no-wrap border border-gray-500 ${getDifficultyColor(problem.difficulty)}`}>
                 {problem.difficulty}
               </td>
-              <td className="px-4 py-2 text-sm  whitespace-no-wrap border border-gray-500 text-center"> {/* Centered text */}
+              <td className="px-4 py-2 text-sm whitespace-no-wrap border border-gray-500 text-center">
                 {solvedProblems[problem.id] ? (
-                  <span className="text-green-600 font-extrabold flex items-center justify-center"> {/* Centered flex container */}
+                  <span className="text-green-600 font-extrabold flex items-center justify-center">
                     Solved
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

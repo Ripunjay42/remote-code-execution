@@ -120,6 +120,12 @@ export default function ProblemPage() {
         } else if (problem.id === 'addBinary') {
           const [a, b] = parseAddBinaryInput(input);
           fullCode = fullCode.replace('A_VALUE', a).replace('B_VALUE', b);
+        }else if (problem.id === 'medianOfTwoSortedArrays') {
+          const [nums1, nums2] = parseMedianOfTwoSortedArraysInput(input);
+          fullCode = fullCode.replace('NUMS1_VALUES', nums1).replace('NUMS2_VALUES', nums2);
+        } else if (problem.id === 'reverseInteger') {
+          const x = parseReverseIntegerInput(input);
+          fullCode = fullCode.replace('INPUT_VALUE', x);
         }
 
         // Submit code to Judge0 API
@@ -230,6 +236,20 @@ export default function ProblemPage() {
     const a = aMatch ? aMatch[1] : "";
     const b = bMatch ? bMatch[1] : "";
     return [a, b];
+  };
+
+  
+  const parseMedianOfTwoSortedArraysInput = (input) => {
+    const nums1Match = input.match(/nums1 = {(.*?)}/);
+    const nums2Match = input.match(/nums2 = {(.*?)}/);
+    const nums1 = nums1Match ? nums1Match[1] : '';
+    const nums2 = nums2Match ? nums2Match[1] : '';
+    return [nums1, nums2];
+  };
+
+  const parseReverseIntegerInput = (input) => {
+    const match = input.match(/x = (-?\d+)/);
+    return match ? match[1] : "";
   };
 
   if (!problem) return <div>Problem not found</div>;

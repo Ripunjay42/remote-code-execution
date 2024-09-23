@@ -8,7 +8,7 @@ const page = () => {
     <div className='bg-gradient-to-b from-gray-900 to-black bg-center min-h-screen relative px-4'>
       <div className='max-w-7xl mx-auto'>
         <Topbar />
-        <div className='text-center text-white mt-28'>
+        <div className='text-center text-white mt-14 md:mt-24 lg:mt-28'>
           <h1 className='text-4xl text-violet-300 font-extrabold mb-8'>
             Coding Challenges
           </h1>
