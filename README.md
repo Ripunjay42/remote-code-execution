@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Remote Code Execution
+
+# DEMO
+https://your-demo-link.com  <!-- Replace with actual demo link -->
+
+## Overview
+Remote Code Execution is a full-stack web application developed using Next.js, Firebase, and the Judge0 API. It allows users to write and practice code in different programming languages while solving various coding problems. The application requires user authentication to submit solutions, and it stores the status of each problem in Firestore for easy tracking.
+
+## Features
+- Code Writing and Execution: Write and execute code in multiple programming languages.
+- Problem Solving: Access a variety of coding problems and submit solutions.
+- Test Case Checking: Automatically check submitted solutions against predefined test cases.
+- User Status Tracking: Store and retrieve the status of solved problems in Firestore based on user authentication.
+- Secure Authentication: Use Firebase Authentication for a secure login and registration process.
+- Error Handling: Display meaningful error messages for coding mistakes or execution issues.
+
+## Technologies Used
+- Frontend: Next.js, Tailwind CSS
+- Authentication: Firebase
+- Code Execution: Judge0 API for executing code in a secure environment
+- Database: Firestore for storing user data and problem-solving status
 
 ## Getting Started
+### Prerequisites
+- Node.js installed on your local machine
+- Firebase project set up for authentication and Firestore
+- Access to Judge0 API (public API or self-hosted)
 
-First, run the development server:
+### Installation
+1. Clone the repository: 
+   ```bash
+   git clone https://github.com/yourusername/remote-code-execution.git  <!-- Replace with your actual repository link -->
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. Navigate to the project directory(client):
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```bash
+   cd remote-code-execcution
+   ```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+3. Install dependencies:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+   ```bash
+   npm install
+   ```
 
-## Learn More
+4. Set up environment variables: 
+  -Create a .env.local file in the root directory and add your Firebase configuration details and Judge0 API URL:
+  -NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+  -NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+  -NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+  -NEXT_PUBLIC_JUDGE0_API_URL=https://api.judge0.com
+   NEXT_PUBLIC_JUDGE0_API_KEY=your_api_key
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Start the development server:
 
-## Deploy on Vercel
+   ```bash
+   npm run dev
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+2. Open your browser and navigate to `http://localhost:3000` to access the application.
+  -Sign up or log in using your Firebase account to start solving problems and executing code!
