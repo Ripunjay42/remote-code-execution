@@ -71,25 +71,25 @@ export default function ProblemTable() {
       <table className="min-w-full max-w-4xl mx-auto border-collapse">
         <thead>
           <tr>
-            <th className="hidden lg:table-cell px-4 py-2 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
+            <th className="hidden lg:table-cell px-4 py-3 border-2 items-center border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
               <div className="flex items-center justify-center space-x-1">
                 <span>S/N</span>
                 <ListOrdered className="w-4 h-4 text-white font-extrabold" /> {/* Icon for S/N */}
               </div>
             </th>
-            <th className="px-4 py-2 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
+            <th className="px-4 py-2 border-2 border-gray-300 items-center text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
               <div className="flex items-center justify-center space-x-1">
                 <span>Problem</span>
                 <ExternalLink className="w-4 h-4 text-white font-extrabold" /> {/* Icon for Problem */}
               </div>
             </th>
-            <th className="px-4 py-2 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
+            <th className="px-4 py-2 border-2 items-center border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
               <div className="flex items-center justify-center space-x-1">
                 <span>Difficulty</span>
                 <BarChart className="w-4 h-4 text-white font-extrabold" /> {/* Icon for Difficulty */}
               </div>
             </th>
-            <th className="px-4 py-2 border-2 border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
+            <th className="px-4 py-2 border-2 items-center border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
               <div className="flex items-center justify-center space-x-1">
                 <span>Status</span>
                 <CheckCircle className="w-4 h-4 text-white font-extrabold" /> {/* Icon for Status */}
