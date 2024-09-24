@@ -29,12 +29,12 @@ Remote Code Execution is a full-stack web application developed using Next.js, F
 ### Installation
 1. Clone the repository: 
    ```bash
-   git clone https://github.com/yourusername/remote-code-execution.git  <!-- Replace with your actual repository link -->
+   git clone https://github.com/Ripunjay42/remote-code-execution.git  <!-- Replace with your actual repository link -->
 
 2. Navigate to the project directory(client):
 
    ```bash
-   cd remote-code-execcution
+   cd remote-code-execution
    ```
 
 3. Install dependencies:
