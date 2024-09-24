@@ -1,7 +1,7 @@
 # Remote Code Execution
 
 # DEMO
-https://daily-code-pi.vercel.app <!-- Replace with actual demo link -->
+https://daily-code-pi.vercel.app
 
 ## Overview
 Remote Code Execution is a full-stack web application developed using Next.js, Firebase, and the Judge0 API. It allows users to write and practice code in different programming languages while solving various coding problems. The application requires user authentication to submit solutions, and it stores the status of each problem in Firestore for easy tracking.
@@ -29,7 +29,7 @@ Remote Code Execution is a full-stack web application developed using Next.js, F
 ### Installation
 1. Clone the repository: 
    ```bash
-   git clone https://github.com/Ripunjay42/remote-code-execution.git  <!-- Replace with your actual repository link -->
+   git clone https://github.com/Ripunjay42/remote-code-execution.git
 
 2. Navigate to the project directory(client):
 
@@ -43,13 +43,13 @@ Remote Code Execution is a full-stack web application developed using Next.js, F
    npm install
    ```
 
-4. Set up environment variables: 
-  -Create a .env.local file in the root directory and add your Firebase configuration details and Judge0 API URL:
-  -NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
-  -NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
-  -NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
-  -NEXT_PUBLIC_JUDGE0_API_URL=https://api.judge0.com
-   NEXT_PUBLIC_JUDGE0_API_KEY=your_api_key
+## Set up environment variables: 
+  ### Create a .env.local file in the root directory and add your Firebase configuration details and Judge0 API URL:
+  - NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+  - NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+  - NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+  - NEXT_PUBLIC_JUDGE0_API_URL=https://api.judge0.com
+  - NEXT_PUBLIC_JUDGE0_API_KEY=your_api_key
 
 
 ## Usage
