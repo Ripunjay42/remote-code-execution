@@ -72,7 +72,7 @@ const Authpage = () => {
           {!isAuthenticated ? (
             <>
               <h1 className='text-2xl font-bold mb-16 text-cyan-300'>
-                <FaExclamationTriangle className='inline-block mr-2 text-3xl' />
+                <FaExclamationTriangle className='inline-block mr-2 text-3xl text-red-600' />
                 Please log in or sign up to continue
               </h1>
               <div className='flex justify-center space-x-8'>
