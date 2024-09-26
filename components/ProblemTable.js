@@ -68,7 +68,7 @@ export default function ProblemTable() {
           background: #555;
         }
       `}</style>
-      <table className="min-w-full max-w-4xl mx-auto border-collapse">
+      <table className="min-w-full max-w-4xl mx-auto border-collapse bg-gradient-to-b from-gray-900 to-black">
         <thead>
           <tr>
             <th className="hidden lg:table-cell px-4 py-3 border-2 items-center border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">

@@ -2,12 +2,14 @@
 import React from 'react';
 import Topbar from '@/components/Topbar';
 import ProblemTable from '@/components/ProblemTable';
-import { FaCode, FaLaptopCode, FaCoffee, FaLinkedin } from 'react-icons/fa'; // Import the LinkedIn icon
+import { FaCode, FaLaptopCode, FaCoffee, FaLinkedin } from 'react-icons/fa'; // Import the LinkedIn icon // bg-gradient-to-b from-gray-900 to-black
 import { motion } from 'framer-motion'; // Import framer-motion for animations
 
 const page = () => {
   return (
-    <div className='bg-gradient-to-b from-gray-900 to-black bg-center min-h-screen relative px-4'>
+    <div className='bg-center bg-cover min-h-screen relative px-4' style={{ backgroundImage: 'url(/bg.jpg)' }}>
+      <div className='absolute inset-0 bg-black opacity-85'></div>
+              
       <div className='max-w-7xl mx-auto'>
         <Topbar />
         <div className='text-center text-white mt-16 md:mt-24 lg:mt-28 relative'>
@@ -63,7 +65,7 @@ const page = () => {
           </motion.div>
 
           <motion.div
-            className='text-center mt-24 text-white'
+            className='text-center mt-16 text-white'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.09, duration: 0.6 }}
