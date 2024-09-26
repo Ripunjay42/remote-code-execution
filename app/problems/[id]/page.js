@@ -21,10 +21,10 @@ export default function ProblemPage() {
 
   // Hold all API keys in an array and rotate them every hour
   const apiKeys = [
-    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_4,
-    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_3,
-    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_2,
     process.env.NEXT_PUBLIC_JUDGE0_API_KEY_1,
+    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_2,
+    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_3,
+    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_4,
     process.env.NEXT_PUBLIC_JUDGE0_API_KEY_5,
   ];
 
@@ -97,7 +97,7 @@ export default function ProblemPage() {
       setCurrentApiKey(apiKeys[apiKeyIndex.current]);
     };
 
-    const intervalId = setInterval(rotateKey, 3600000); // Rotate every 10mins
+    const intervalId = setInterval(rotateKey, 600000); // Rotate every 10mins
 
     return () => clearInterval(intervalId); // Clean up on component unmount
   }, [apiKeys]);
