@@ -24,7 +24,7 @@ export default function CodeEditor({ code, onChange }) {
     <div className="custom-ace-editor">
     <style jsx global>{`
       .custom-ace-editor .ace_scrollbar::-webkit-scrollbar {
-        width: 6px;
+        width: 5px;
         height: 6px;
       }
       .custom-ace-editor .ace_scrollbar::-webkit-scrollbar-track {
@@ -52,7 +52,7 @@ export default function CodeEditor({ code, onChange }) {
         showLineNumbers: true,
         tabSize: 6,
       }}
-      style={{ width: '100%', height: '500px', padding: '10px' }}
+      style={{ width: '100%', height: '600px', padding: '10px' }}
     />
   </div>
   );

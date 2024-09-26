@@ -8,11 +8,11 @@ const JUDGE0_API_URL = 'https://judge0-ce.p.rapidapi.com';
 
 // Store all API keys in an array for rotation
 const apiKeys = [
-  process.env.NEXT_PUBLIC_JUDGE0_API_KEY_1,
   process.env.NEXT_PUBLIC_JUDGE0_API_KEY_2,
   process.env.NEXT_PUBLIC_JUDGE0_API_KEY_3,
   process.env.NEXT_PUBLIC_JUDGE0_API_KEY_4,
   process.env.NEXT_PUBLIC_JUDGE0_API_KEY_5,
+  process.env.NEXT_PUBLIC_JUDGE0_API_KEY_1,
 ];
 
 const AceEditor = dynamic(
@@ -81,7 +81,7 @@ export default function CodeEditorPage() {
       setCurrentApiKey(apiKeys[apiKeyIndex.current]);
     };
 
-    const intervalId = setInterval(rotateKey, 600000); // Rotate every 10 mins (600000 ms)
+    const intervalId = setInterval(rotateKey, 300000); // Rotate every 10 mins (600000 ms)
     
     return () => clearInterval(intervalId);
   }, []);

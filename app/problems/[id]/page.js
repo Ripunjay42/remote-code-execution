@@ -21,11 +21,12 @@ export default function ProblemPage() {
 
   // Hold all API keys in an array and rotate them every hour
   const apiKeys = [
-    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_1,
     process.env.NEXT_PUBLIC_JUDGE0_API_KEY_2,
     process.env.NEXT_PUBLIC_JUDGE0_API_KEY_3,
     process.env.NEXT_PUBLIC_JUDGE0_API_KEY_4,
     process.env.NEXT_PUBLIC_JUDGE0_API_KEY_5,
+    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_1,
+
   ];
 
   const [currentApiKey, setCurrentApiKey] = useState(apiKeys[0]);
@@ -97,7 +98,7 @@ export default function ProblemPage() {
       setCurrentApiKey(apiKeys[apiKeyIndex.current]);
     };
 
-    const intervalId = setInterval(rotateKey, 600000); // Rotate every 10mins
+    const intervalId = setInterval(rotateKey, 300000); // Rotate every 10mins
 
     return () => clearInterval(intervalId); // Clean up on component unmount
   }, [apiKeys]);
@@ -154,6 +155,22 @@ export default function ProblemPage() {
         else if (problem.id === 'longestValidParentheses') {
           const s = parseStringInput(input);  // Parsing input for parentheses string
           fullCode = fullCode.replace('INPUT_STRING', s);
+        }
+        else if (problem.id === 'romanToInteger') {
+          const s = parseStringInput(input);
+          fullCode = fullCode.replace('INPUT_STRING', s);
+        }
+        else if (problem.id === 'singleNumber') {
+          const nums = parseSingleNumberInput(input);
+          fullCode = fullCode.replace('INPUT_ARRAY', nums);
+        }
+        else if (problem.id === 'nextPermutation') {
+          const nums = parseNextPermutationInput(input);
+          fullCode = fullCode.replace('INPUT_ARRAY', nums);
+        }
+        else if (problem.id === 'firstMissingPositive') {
+          const nums = parseFirstMissingPositiveInput(input);
+          fullCode = fullCode.replace('INPUT_ARRAY', nums);
         }
 
         // Submit code to Judge0 API
@@ -285,6 +302,21 @@ export default function ProblemPage() {
     return match ? match[1] : "";
   };
 
+  const parseSingleNumberInput = (input) => {
+    const match = input.match(/nums = {(.*?)}/);
+    return match ? match[1] : "";
+  };
+
+  const parseNextPermutationInput = (input) => {
+    const match = input.match(/nums = {(.*?)}/);
+    return match ? match[1] : "";
+  };
+
+  const parseFirstMissingPositiveInput = (input) => {
+    const match = input.match(/nums = {(.*?)}/);
+    return match ? match[1] : "";
+  };
+
   if (!problem) return <div>Problem not found</div>;
 
   return (
@@ -303,7 +335,7 @@ export default function ProblemPage() {
             <ProblemDescription problem={problem} isSolved={isSolved} />
           </div>
           <div className="w-full md:w-1/2 border-spacing-2 border-2 p-3">
-            <div className="text-center text-lg font-bold text-white mb-0">C++</div>
+            <div className="text-center text-md font-extrabold text-cyan-400 mb-0">C++</div>
             <CodeEditor code={code} onChange={setCode} />
             <div className="flex items-center mt-4">
             <button
@@ -326,7 +358,7 @@ export default function ProblemPage() {
               <TestCases 
                 testCases={problem.testCases} 
                 results={testResults} 
-                compilationError={compilationError} 
+                compilationError={compilationError}
               />
             </div>
           </div>

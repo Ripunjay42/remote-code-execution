@@ -14,7 +14,14 @@ export default function TestCases({ testCases, results, compilationError }) {
 
   return (
     <div className="mt-4">
+      {/* <div className="flex items-center"> */}
       <h2 className="text-xl text-white font-bold mb-2">Test Cases</h2>
+      {/* {isSubmitting && (
+                <div className="ml-2">
+                  <div className="w-4 h-4 border-t-2 border-r-2 border-red-500 rounded-full animate-spin"></div>
+                </div>
+              )}
+      </div> */}
 
       {hasErrors && (
         <div className="mb-4 p-4 border border-red-500 rounded bg-gray-900 text-white text-sm">
@@ -40,7 +47,7 @@ export default function TestCases({ testCases, results, compilationError }) {
       <div className="max-h-56 overflow-y-auto border border-gray-700 rounded p-2 custom-scrollbar">
       <style jsx>{`
         .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
+          width: 5px;
           height: 6px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {

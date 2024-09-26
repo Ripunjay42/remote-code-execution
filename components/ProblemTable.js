@@ -54,7 +54,7 @@ export default function ProblemTable() {
     <div className="overflow-x-auto max-h-[450px] md:max-h-[500px] overflow-y-auto border border-violet-300 rounded p-2 custom-scrollbar">
       <style jsx>{`
         .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
+          width: 5px;
           height: 6px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
@@ -115,8 +115,9 @@ export default function ProblemTable() {
               <td className="px-4 py-2 text-sm whitespace-no-wrap border border-gray-500 text-center">
                 {solvedProblems[problem.id] ? (
                   <span className="text-green-600 font-extrabold flex items-center justify-center">
-                    Solved
-                    <svg
+                    {/* Solved */}
+                    <CheckCircle className="w-4 h-4 text-green-500 font-extrabold" /> 
+                    {/* <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="ml-2 w-5 h-5 text-green-600"
                       fill="none"
@@ -129,7 +130,7 @@ export default function ProblemTable() {
                         strokeLinejoin="round"
                         d="M5 13l4 4L19 7"
                       />
-                    </svg>
+                    </svg> */}
                   </span>
                 ) : (
                   <span className="text-red-500">Not Solved</span>
