@@ -70,8 +70,8 @@ const Topbar = () => {
                 onClick={() => setShowSignOut(!showSignOut)}
                 className="flex items-center space-x-2 text-white"
               >
-                <div className="flex items-center justify-center w-8 h-8 bg-black rounded-full">
-                  <User className="h-5 w-5 text-violet-400" />
+                <div className="flex items-center justify-center w-8 h-8 bg-black rounded-full border-2 border-violet-300">
+                  <User className="h-5 w-5 text-violet-300" />
                 </div>
                 <span className="text-sm">{user.name}</span>
               </button>
