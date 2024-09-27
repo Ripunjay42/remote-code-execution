@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
 
-const HUGGINGFACE_API_URL = 'https://api-inference.huggingface.co/models/bigcode/starcoder';
+// const HUGGINGFACE_API_URL = 'https://api-inference.huggingface.co/models/bigcode/starcoder';
 
 // Enhanced rule-based analyzer for C++ with <bits/stdc++.h> and using namespace std;
 function analyzeComplexity(code) {
@@ -140,26 +140,26 @@ export async function POST(request) {
     const { timeComplexity, spaceComplexity } = analyzeComplexity(code);
 
     // Then, use the language model for additional insights
-    const prompt = `Analyze the following code for its time and space complexity. If the complexities are different from ${timeComplexity} and ${spaceComplexity}, provide only the correct complexities without explanation. Format your response exactly like this: Time Complexity: O(...), Space Complexity: O(...)
+//     const prompt = `Analyze the following code for its time and space complexity. If the complexities are different from ${timeComplexity} and ${spaceComplexity}, provide only the correct complexities without explanation. Format your response exactly like this: Time Complexity: O(...), Space Complexity: O(...)
 
-Code:
-${code}
+// Code:
+// ${code}
 
-Time Complexity: ${timeComplexity}
-Space Complexity: ${spaceComplexity}
+// Time Complexity: ${timeComplexity}
+// Space Complexity: ${spaceComplexity}
 
-Your analysis:`;
+// Your analysis:`;
 
-    const response = await axios.post(
-      HUGGINGFACE_API_URL,
-      { inputs: prompt },
-      {
-        headers: {
-          'Authorization': `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+//     const response = await axios.post(
+//       HUGGINGFACE_API_URL,
+//       { inputs: prompt },
+//       {
+//         headers: {
+//           'Authorization': `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
+//           'Content-Type': 'application/json',
+//         },
+//       }
+//     );
 
     let analysisResult = `Time Complexity: ${timeComplexity}   Space Complexity: ${spaceComplexity}`;
 
