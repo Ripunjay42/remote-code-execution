@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from 'react';
 import ProblemDescription from '@/components/ProblemDescription';
 import CodeEditor from '@/components/CodeEditor';
 import TestCases from '@/components/TestCases';
+import ComplexityAnalysis from '@/components/ComplexityAnalysis';
 import { problems } from '../../../lib/problems';
 import Topbar from '@/components/Topbar';
 import { auth } from '@/components/firebase/firebaseConfig';
@@ -47,6 +48,8 @@ export default function ProblemPage() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [compilationError, setCompilationError] = useState(null);
   const [windowDimension, setWindowDimension] = useState({ width: 0, height: 0 });
+  const [complexity, setComplexity] = useState(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
 
   useEffect(() => {
@@ -336,8 +339,8 @@ export default function ProblemPage() {
           </div>
           <div className="w-full md:w-1/2 border-spacing-2 border-2 p-3">
             <div className="text-center text-md font-extrabold text-cyan-400 mb-0">C++</div>
-            <CodeEditor code={code} onChange={setCode} />
-            <div className="flex items-center mt-4">
+            <CodeEditor code={code} setCode={setCode} />
+            <div className="flex items-center mt-4 space-x-2">
             <button
               onClick={handleSubmit}
               disabled={isSubmitting}
@@ -350,6 +353,13 @@ export default function ProblemPage() {
                   <div className="w-4 h-4 border-t-2 border-r-2 border-red-500 rounded-full animate-spin"></div>
                 </div>
               )}
+              <ComplexityAnalysis 
+              code={code} 
+              complexity={complexity}
+              setComplexity={setComplexity}
+              isAnalyzing={isAnalyzing}
+              setIsAnalyzing={setIsAnalyzing}
+              />
             </div>
             {showAuthMessage && (
               <p className="mt-2 text-red-500">Please sign in to submit your code.</p>
@@ -359,6 +369,7 @@ export default function ProblemPage() {
                 testCases={problem.testCases} 
                 results={testResults} 
                 compilationError={compilationError}
+                complexity={complexity}
               />
             </div>
           </div>

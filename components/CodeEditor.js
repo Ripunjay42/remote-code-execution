@@ -11,7 +11,7 @@ const AceEditor = dynamic(
   { ssr: false }
 );
 
-export default function CodeEditor({ code, onChange }) {
+export default function CodeEditor({ code, setCode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function CodeEditor({ code, onChange }) {
     <AceEditor
       mode="c_cpp"
       theme="monokai"
-      onChange={onChange}
+      onChange={setCode}
       value={code}
       name="code-editor"
       editorProps={{ $blockScrolling: true }}

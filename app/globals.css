@@ -103,3 +103,11 @@
 }
 
 
+.complexity-report {
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid #888;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}

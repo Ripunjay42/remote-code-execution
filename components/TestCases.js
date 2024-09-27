@@ -9,11 +9,18 @@ const decodeBase64 = (str) => {
   }
 };
 
-export default function TestCases({ testCases, results, compilationError }) {
+export default function TestCases({ testCases, results, compilationError, complexity }) {
   const hasErrors = compilationError || results.some(result => result.status?.id !== 3);
 
   return (
     <div className="mt-4">
+      {complexity && (
+          <div className="mb-4 p-4 border border-red-500 rounded bg-gray-900 text-white text-sm">
+            <h3 className="text-lg font-semibold text-blue-500">Complexity Analysis(approx.) : </h3>
+            <pre className="text-green-400 whitespace-pre-wrap">{JSON.stringify(complexity, null, 2)}</pre>
+          </div>
+        )}
+
       {/* <div className="flex items-center"> */}
       <h2 className="text-xl text-white font-bold mb-2">Test Cases</h2>
       {/* {isSubmitting && (
@@ -22,6 +29,7 @@ export default function TestCases({ testCases, results, compilationError }) {
                 </div>
               )}
       </div> */}
+
 
       {hasErrors && (
         <div className="mb-4 p-4 border border-red-500 rounded bg-gray-900 text-white text-sm">
