@@ -18,14 +18,24 @@ export default function ProblemTable() {
       setUser(currentUser);
 
       if (currentUser) {
-        const solvedStatus = {};
-        for (let problem of problems) {
-          const docRef = doc(db, 'users', currentUser.uid, 'solvedProblems', problem.id);
-          const docSnap = await getDoc(docRef);
-          if (docSnap.exists()) {
-            solvedStatus[problem.id] = docSnap.data().solved;
+        // Try to load solved problems from local storage
+        const localStorageKey = `solvedProblems_${currentUser.uid}`;
+        const localSolvedProblems = localStorage.getItem(localStorageKey);
+        const solvedStatus = localSolvedProblems ? JSON.parse(localSolvedProblems) : {};
+
+        // If not in local storage, fetch from Firestore
+        if (Object.keys(solvedStatus).length === 0) {
+          for (let problem of problems) {
+            const docRef = doc(db, 'users', currentUser.uid, 'solvedProblems', problem.id);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+              solvedStatus[problem.id] = docSnap.data().solved;
+            }
           }
+          // Save the fetched solved problems to local storage
+          localStorage.setItem(localStorageKey, JSON.stringify(solvedStatus));
         }
+
         setSolvedProblems(solvedStatus);
       } else {
         // Reset solvedProblems when user signs out
@@ -42,7 +52,7 @@ export default function ProblemTable() {
       case 'Easy':
         return 'text-green-500'; // Green color for Easy
       case 'Medium':
-        return 'text-yellow-500'; // Blue color for Medium
+        return 'text-yellow-500'; // Yellow color for Medium
       case 'Hard':
         return 'text-red-500'; // Red color for Hard
       default:
@@ -117,20 +127,6 @@ export default function ProblemTable() {
                   <span className="text-green-600 font-extrabold flex items-center justify-center">
                     {/* Solved */}
                     <CheckCircle className="w-4 h-4 text-green-500 font-extrabold" /> 
-                    {/* <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="ml-2 w-5 h-5 text-green-600"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg> */}
                   </span>
                 ) : (
                   <span className="text-red-500">Not Solved</span>
