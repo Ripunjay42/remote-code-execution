@@ -83,6 +83,7 @@ export default function ProblemPage() {
         setIsSolved(false);
         setTestResults([]);
         setCompilationError(null);
+        setComplexity(null);
       }
     });
 
@@ -102,7 +103,7 @@ export default function ProblemPage() {
       setCurrentApiKey(apiKeys[apiKeyIndex.current]);
     };
 
-    const intervalId = setInterval(rotateKey, 300000); // Rotate every 10mins
+    const intervalId = setInterval(rotateKey, 180000); // Rotate every 3mins
 
     return () => clearInterval(intervalId); // Clean up on component unmount
   }, [apiKeys]);
@@ -378,6 +379,7 @@ export default function ProblemPage() {
                 compilationError={compilationError}
                 complexity={complexity}
                 hasErrors={hasErrors}
+                user
               />
             </div>
           </div>

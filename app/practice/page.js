@@ -81,7 +81,7 @@ export default function CodeEditorPage() {
       setCurrentApiKey(apiKeys[apiKeyIndex.current]);
     };
 
-    const intervalId = setInterval(rotateKey, 300000); // Rotate every 10 mins (600000 ms)
+    const intervalId = setInterval(rotateKey, 180000); // Rotate every 3 mins
     
     return () => clearInterval(intervalId);
   }, []);
