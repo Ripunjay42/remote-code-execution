@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const ComplexityAnalysis = ({ code, setComplexity, isAnalyzing, setIsAnalyzing }) => {
+const ComplexityAnalysis = ({ code, setComplexity, isAnalyzing, setIsAnalyzing, setCompilationError }) => {
 
   const analyzeComplexity = async (code) => {
     const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
@@ -18,6 +18,7 @@ ${code}`;
   };
 
   const handleAnalyzeComplexity = async () => {
+    setCompilationError(null);
     setIsAnalyzing(true);
     setComplexity(null);
 

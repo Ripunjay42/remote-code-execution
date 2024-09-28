@@ -360,6 +360,7 @@ export default function ProblemPage() {
               setComplexity={setComplexity}
               isAnalyzing={isAnalyzing}
               setIsAnalyzing={setIsAnalyzing}
+              setCompilationError={setCompilationError}
               />
             </div>
             {showAuthMessage && (
