@@ -8,11 +8,11 @@ const JUDGE0_API_URL = 'https://judge0-ce.p.rapidapi.com';
 
 // Store all API keys in an array for rotation
 const apiKeys = [
+  process.env.NEXT_PUBLIC_JUDGE0_API_KEY_1,
   process.env.NEXT_PUBLIC_JUDGE0_API_KEY_2,
   process.env.NEXT_PUBLIC_JUDGE0_API_KEY_3,
   process.env.NEXT_PUBLIC_JUDGE0_API_KEY_4,
   process.env.NEXT_PUBLIC_JUDGE0_API_KEY_5,
-  process.env.NEXT_PUBLIC_JUDGE0_API_KEY_1,
 ];
 
 const AceEditor = dynamic(
