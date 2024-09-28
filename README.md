@@ -53,7 +53,7 @@ Remote Code Execution is a full-stack web application developed using Next.js, F
   - NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
   - NEXT_PUBLIC_JUDGE0_API_URL=https://api.judge0.com
   - NEXT_PUBLIC_JUDGE0_API_KEY=your_api_key
-  - NEXT_PUBLIC_GEMENI_API_KEY=your_api_key
+  - NEXT_PUBLIC_GEMINI_API_KEY=your_api_key
 
 
 ## Usage
