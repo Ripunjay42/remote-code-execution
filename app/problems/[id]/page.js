@@ -364,10 +364,12 @@ export default function ProblemPage() {
               isAnalyzing={isAnalyzing}
               setIsAnalyzing={setIsAnalyzing}
               setHasErrors={setHasErrors}
+              user={user}
+              setShowAuthMessage={setShowAuthMessage}
               />
             </div>
             {showAuthMessage && (
-              <p className="mt-2 text-red-500">Please sign in to submit your code.</p>
+              <p className="mt-2 text-red-500">Please sign in to submit and analyse your code.</p>
             )}
             <div className="mt-4">
               <TestCases 
