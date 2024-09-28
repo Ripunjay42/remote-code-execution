@@ -50,6 +50,7 @@ export default function ProblemPage() {
   const [windowDimension, setWindowDimension] = useState({ width: 0, height: 0 });
   const [complexity, setComplexity] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [hasErrors, setHasErrors] = useState(false);
 
 
   useEffect(() => {
@@ -229,6 +230,7 @@ export default function ProblemPage() {
 
         if (outputResult.status.id === 6) {
           setCompilationError(outputResult.compile_output);
+          setHasErrors(true);
           hasStoppedCompiling = true;
         }
 
@@ -248,6 +250,7 @@ export default function ProblemPage() {
         ]);
         allPassed = false;
       }
+      
     }
 
     if (allPassed) {
@@ -360,7 +363,7 @@ export default function ProblemPage() {
               setComplexity={setComplexity}
               isAnalyzing={isAnalyzing}
               setIsAnalyzing={setIsAnalyzing}
-              setCompilationError={setCompilationError}
+              setHasErrors={setHasErrors}
               />
             </div>
             {showAuthMessage && (
@@ -372,6 +375,7 @@ export default function ProblemPage() {
                 results={testResults} 
                 compilationError={compilationError}
                 complexity={complexity}
+                hasErrors={hasErrors}
               />
             </div>
           </div>

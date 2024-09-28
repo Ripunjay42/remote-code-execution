@@ -9,8 +9,8 @@ const decodeBase64 = (str) => {
   }
 };
 
-export default function TestCases({ testCases, results, compilationError, complexity }) {
-  const hasErrors = compilationError || results.some(result => result.status?.id !== 3);
+export default function TestCases({ testCases, results, compilationError, complexity, hasErrors }) {
+  const haasErrors = compilationError || results.some(result => result.status?.id !== 3);
 
   return (
     <div className="mt-4">
@@ -31,7 +31,7 @@ export default function TestCases({ testCases, results, compilationError, comple
       </div> */}
 
 
-      {hasErrors && (
+      {hasErrors && haasErrors && (
         <div className="mb-4 p-4 border border-red-500 rounded bg-gray-900 text-white text-sm">
           <h3 className="text-lg font-bold text-red-300 mb-2">Errors:</h3>
           {compilationError ? (
