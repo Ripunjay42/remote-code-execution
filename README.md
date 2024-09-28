@@ -13,7 +13,7 @@ Remote Code Execution is a full-stack web application developed using Next.js, F
 - User Status Tracking: Store and retrieve the status of solved problems in Firestore based on user authentication.
 - Secure Authentication: Use Firebase Authentication for a secure login and registration process.
 - Error Handling: Display meaningful error messages for coding mistakes or execution issues.
-- Complexity Analysis:** Analyze and display approximate time and space complexity for submitted solutions to help users understand the efficiency of their code using gemeni api.
+- Complexity Analysis: Analyze and display approximate time and space complexity for submitted solutions to help users understand the efficiency of their code using Gemeni API.
 
 
 ## Technologies Used
@@ -21,6 +21,7 @@ Remote Code Execution is a full-stack web application developed using Next.js, F
 - Authentication: Firebase
 - Code Execution: Judge0 API for executing code in a secure environment
 - Database: Firestore for storing user data and problem-solving status
+- Complexity: Gemeni API for analyze time and space complexity
 
 ## Getting Started
 ### Prerequisites
