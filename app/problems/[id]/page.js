@@ -107,6 +107,7 @@ export default function ProblemPage() {
   }, [apiKeys]);
 
   const handleSubmit = async () => {
+    setComplexity(null);
     if (!user) {
       setShowAuthMessage(true);
       setTimeout(() => setShowAuthMessage(false), 3000);
