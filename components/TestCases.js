@@ -16,7 +16,7 @@ export default function TestCases({ testCases, results, compilationError, comple
     <div className="mt-4">
       {complexity && (
           <div className="mb-4 p-4 border border-red-500 rounded bg-gray-900 text-white text-sm">
-            <h3 className="text-lg font-semibold text-blue-500">Complexity Analysis(approx.) : </h3>
+            <h3 className="text-lg font-semibold text-blue-500">Complexity Analysis : </h3>
             <pre className="text-green-400 whitespace-pre-wrap">{JSON.stringify(complexity, null, 2)}</pre>
           </div>
         )}

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.20.0",
     "ace-builds": "^1.36.2",
     "anthropic": "^0.0.0",
     "axios": "^1.7.7",
