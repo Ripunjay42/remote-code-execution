@@ -1,28 +1,16 @@
 import React from 'react';
+import { CheckCircle } from 'lucide-react';
 
 export default function ProblemDescription({ problem, isSolved }) {
   return (
     <div className="overflow-hidden max-w-full relative">
       {isSolved && (
-        <span className="absolute top-1 right-4 bg-green-900 text-white text-xs font-extrabold px-2 py-1 rounded flex items-center">
+        <span className="absolute top-2 right-4 bg-black text-green-500 text-xs font-extrabold px-2 py-1 rounded flex items-center">
           Solved
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="ml-2 w-6 h-4 text-gray-100 font-extrabold"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M5 13l4 4L19 7" // Checkmark path
-            />
-          </svg>
+          <CheckCircle className="ml-1 w-4 h-4 text-green-500 font-extrabold" />
         </span>
       )}
-    <h1 className="text-2xl md:text-2xl text-cyan-500 underline font-bold mb-4  max-w-[calc(100%-8rem)] overflow-hidden break-words">
+    <h1 className="text-2xl md:text-2xl text-cyan-500 underline font-bold mb-4  max-w-[calc(100%-8rem)] overflow-hidden break-words top-2">
       {problem.title}
     </h1>
       <div
