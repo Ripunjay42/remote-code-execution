@@ -78,31 +78,31 @@ export default function ProblemTable() {
           background: #555;
         }
       `}</style>
-      <table className="min-w-full max-w-4xl mx-auto border-collapse bg-gradient-to-b from-gray-900 to-black">
+      <table className="w-full md:max-w-4xl mx-auto border-collapse bg-gradient-to-b from-gray-900 to-black">
         <thead>
           <tr>
-            <th className="hidden lg:table-cell px-4 py-3 border-2 items-center border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
+            <th className="hidden md:table-cell px-2 md:px-4 py-2 md:py-3 border-2 items-center border-gray-300 text-xs md:text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
               <div className="flex items-center justify-center space-x-1">
-                <span>S/N</span>
-                <ListOrdered className="w-4 h-4 text-white font-extrabold" /> {/* Icon for S/N */}
+                <span className="hidden md:inline">S/N</span>
+                <ListOrdered className="w-3 h-3 md:w-4 md:h-4 text-white font-extrabold" />
               </div>
             </th>
-            <th className="px-4 py-2 border-2 border-gray-300 items-center text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
+            <th className="px-2 md:px-4 py-2 border-2 border-gray-300 items-center text-xs md:text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
               <div className="flex items-center justify-center space-x-1">
                 <span>Problem</span>
-                <ExternalLink className="w-4 h-4 text-white font-extrabold" /> {/* Icon for Problem */}
+                <ExternalLink className="w-3 h-3 md:w-4 md:h-4 text-white font-extrabold" />
               </div>
             </th>
-            <th className="px-4 py-2 border-2 items-center border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
+            <th className="px-2 md:px-4 py-2 border-2 items-center border-gray-300 text-xs md:text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
               <div className="flex items-center justify-center space-x-1">
-                <span>Difficulty</span>
-                <BarChart className="w-4 h-4 text-white font-extrabold" /> {/* Icon for Difficulty */}
+                <span className="inline">Difficulty</span>
+                <BarChart className="w-3 h-3 md:w-4 md:h-4 text-white font-extrabold" />
               </div>
             </th>
-            <th className="px-4 py-2 border-2 items-center border-gray-300 text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
+            <th className="px-2 md:px-4 py-2 border-2 items-center border-gray-300 text-xs md:text-sm leading-3 font-medium text-cyan-300 uppercase tracking-wider">
               <div className="flex items-center justify-center space-x-1">
-                <span>Status</span>
-                <CheckCircle className="w-4 h-4 text-white font-extrabold" /> {/* Icon for Status */}
+                <span className="inline">Status</span>
+                <CheckCircle className="w-3 h-3 md:w-4 md:h-4 text-white font-extrabold" />
               </div>
             </th>
           </tr>
@@ -110,26 +110,26 @@ export default function ProblemTable() {
         <tbody>
           {problems.map((problem, index) => (
             <tr key={problem.id}>
-              <td className="hidden lg:table-cell text-sm px-4 py-2 whitespace-no-wrap border border-gray-500">
-                {index + 1} {/* Serial number */}
+              <td className="hidden md:table-cell text-xs md:text-sm px-2 md:px-4 py-2 whitespace-no-wrap border border-gray-500">
+                {index + 1}
               </td>
-              <td className="px-4 py-2 text-sm whitespace-no-wrap border border-gray-500">
+              <td className="px-2 md:px-4 py-2 text-xs md:text-sm whitespace-no-wrap border border-gray-500">
                 <Link href={`/problems/${problem.id}`} className="text-blue-400 hover:text-blue-500 flex items-center justify-between">
-                  {problem.title}
-                  <ExternalLink className="w-4 h-4 ml-2 text-white" />
+                  <span className="truncate max-w-[100px] md:max-w-full">{problem.title}</span>
+                  <ExternalLink className="w-3 h-3 md:w-4 md:h-4 ml-1 md:ml-2 text-white flex-shrink-0" />
                 </Link>
               </td>
-              <td className={`px-4 py-2 text-sm whitespace-no-wrap border border-gray-500 ${getDifficultyColor(problem.difficulty)}`}>
-                {problem.difficulty}
+              <td className={`px-2 md:px-4 py-2 text-xs md:text-sm whitespace-no-wrap border border-gray-500 ${getDifficultyColor(problem.difficulty)}`}>
+                <span className="inline">{problem.difficulty}</span>
+                {/* <span className="md:hidden">{problem.difficulty.charAt(0)}</span> */}
               </td>
-              <td className="px-4 py-2 text-sm whitespace-no-wrap border border-gray-500 text-center">
+              <td className="px-2 md:px-4 py-2 text-xs md:text-sm whitespace-no-wrap border border-gray-500 text-center">
                 {solvedProblems[problem.id] ? (
                   <span className="text-green-600 font-extrabold flex items-center justify-center">
-                    {/* Solved */}
-                    <CheckCircle className="w-4 h-4 text-green-500 font-extrabold" /> 
+                    <CheckCircle className="w-3 h-3 md:w-4 md:h-4 text-green-500 font-extrabold" />
                   </span>
                 ) : (
-                  <span className="text-red-500">Not Solved</span>
+                  <span className="text-red-500 text-xs md:text-sm">Not Solved</span>
                 )}
               </td>
             </tr>
