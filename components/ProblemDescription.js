@@ -5,12 +5,12 @@ export default function ProblemDescription({ problem, isSolved }) {
   return (
     <div className="overflow-hidden max-w-full relative">
       {isSolved && (
-        <span className="absolute top-2 right-4 bg-black text-green-500 text-xs font-extrabold px-2 py-1 rounded flex items-center">
+        <span className="absolute top-1 right-4 bg-black text-green-500 text-xs font-extrabold px-2 py-1 rounded flex items-center">
           Solved
           <CheckCircle className="ml-1 w-4 h-4 text-green-500 font-extrabold" />
         </span>
       )}
-    <h1 className="text-2xl md:text-2xl text-cyan-500 underline font-bold mb-4  max-w-[calc(100%-8rem)] overflow-hidden break-words top-2">
+    <h1 className="text-2xl md:text-2xl text-cyan-500 underline font-bold mb-4  max-w-[calc(100%-8rem)] overflow-hidden break-words">
       {problem.title}
     </h1>
       <div
