@@ -33,7 +33,7 @@ export default function TestCases({ testCases, results, compilationError, comple
             <div key={index} className="flex items-center">
               <span className="mr-1 text-white text-sm">{index + 1}</span>
               <div
-                className={`w-2 h-2 rounded-full ${getStatusColor(index)}`}
+                className={`w-3 h-3 rounded-full ${getStatusColor(index)}`}
               ></div>
             </div>
           ))}
