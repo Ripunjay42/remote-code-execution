@@ -10,7 +10,7 @@ const ComplexityAnalysis = ({ code, setComplexity, isAnalyzing, setIsAnalyzing, 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = `provide only Time and Space Complexity for the following code nothing else not even single word other than time and space complexity and 
-    if code is not complete than dont give any complexity just write  Time_Complexity: not enough information, Space_Complexity: not enough information:
+    if code is not complete than dont give any complexity just write  Time_Complexity: 'n/a            ', Space_Complexity: 'n/a          '. 
 
 ${code}`;
 

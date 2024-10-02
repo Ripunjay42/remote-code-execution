@@ -12,24 +12,33 @@ const decodeBase64 = (str) => {
 export default function TestCases({ testCases, results, compilationError, complexity, hasErrors }) {
   const haasErrors = compilationError || results.some(result => result.status?.id !== 3);
 
+  const getStatusColor = (index) => {
+    if (!results[index]) return 'bg-gray-500'; // Not run yet
+    return results[index].passed ? 'bg-green-500' : 'bg-red-500';
+  };
+
   return (
     <div className="mt-4">
       {complexity && (
-          <div className="mb-4 p-4 border border-red-500 rounded bg-gray-900 text-white text-sm">
-            <h3 className="text-lg font-semibold text-blue-500">Complexity Analysis : </h3>
-            <pre className="text-green-400 whitespace-pre-wrap">{JSON.stringify(complexity, null, 2)}</pre>
-          </div>
-        )}
+        <div className="mb-4 p-4 border border-red-500 rounded bg-gray-900 text-white text-sm">
+          <h3 className="text-lg font-semibold text-blue-500">Complexity Analysis : </h3>
+          <pre className="text-green-400 whitespace-pre-wrap">{JSON.stringify(complexity, null, 2)}</pre>
+        </div>
+      )}
 
-      {/* <div className="flex items-center"> */}
-      <h2 className="text-xl text-white font-bold mb-2">Test Cases</h2>
-      {/* {isSubmitting && (
-                <div className="ml-2">
-                  <div className="w-4 h-4 border-t-2 border-r-2 border-red-500 rounded-full animate-spin"></div>
-                </div>
-              )}
-      </div> */}
-
+      <div className="flex justify-start gap-4 items-center mb-2">
+        <h2 className="text-xl text-white font-bold">Test Cases</h2>
+        <div className="flex items-center space-x-2 gap-4">
+          {testCases.map((_, index) => (
+            <div key={index} className="flex items-center">
+              <span className="mr-1 text-white text-sm">{index + 1}</span>
+              <div
+                className={`w-2 h-2 rounded-full ${getStatusColor(index)}`}
+              ></div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {hasErrors && haasErrors && (
         <div className="mb-4 p-4 border border-red-500 rounded bg-gray-900 text-white text-sm">
@@ -53,22 +62,22 @@ export default function TestCases({ testCases, results, compilationError, comple
       )}
 
       <div className="max-h-56 overflow-y-auto border border-gray-700 rounded p-2 custom-scrollbar">
-      <style jsx>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 5px;
-          height: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: #1a1a1a;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #888;
-          border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #555;
-        }
-      `}</style>
+        <style jsx>{`
+          .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+            height: 6px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1a1a1a;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #555;
+          }
+        `}</style>
         {testCases.map((testCase, index) => (
           <div key={index} className="mb-4 p-4 border border-gray-600 rounded text-white text-sm">
             <p><strong>Test Case {index + 1}</strong></p>
