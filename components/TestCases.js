@@ -13,7 +13,7 @@ export default function TestCases({ testCases, results, compilationError, comple
   const haasErrors = compilationError || results.some(result => result.status?.id !== 3);
 
   const getStatusColor = (index) => {
-    if (!results[index]) return 'bg-gray-500'; // Not run yet
+    if (!results[index]) return 'bg-gray-700'; // Not run yet
     return results[index].passed ? 'bg-green-500' : 'bg-red-500';
   };
 
