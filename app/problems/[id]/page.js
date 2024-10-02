@@ -22,11 +22,11 @@ export default function ProblemPage() {
 
   // Hold all API keys in an array and rotate them every hour
   const apiKeys = [
+    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_4,
+    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_5,
     process.env.NEXT_PUBLIC_JUDGE0_API_KEY_1,
     process.env.NEXT_PUBLIC_JUDGE0_API_KEY_2,
     process.env.NEXT_PUBLIC_JUDGE0_API_KEY_3,
-    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_4,
-    process.env.NEXT_PUBLIC_JUDGE0_API_KEY_5,
 
   ];
 
