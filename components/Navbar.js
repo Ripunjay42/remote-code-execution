@@ -40,7 +40,7 @@ const Navbar = ({ onLoginClick, onSignupClick, setIsLoginOpen }) => {
           DailyCode
         </Link>
         {/* Desktop Navigation */}
-        <div className="hidden md:flex space-x-8">
+        <div className="hidden lg:flex space-x-8">
           <Link 
             href="/" 
             className="flex items-center text-violet-300 text-lg font-bold"
@@ -58,7 +58,7 @@ const Navbar = ({ onLoginClick, onSignupClick, setIsLoginOpen }) => {
         </div>
 
         {/* Desktop Auth Buttons */}
-        <div className="hidden md:flex space-x-2">
+        <div className="hidden lg:flex space-x-2">
           {user ? (
             <button onClick={handleLogout} className="bg-violet-600 hover:bg-violet-700 text-white text-sm font-bold py-1 px-3 rounded">
               Sign Out
@@ -85,7 +85,7 @@ const Navbar = ({ onLoginClick, onSignupClick, setIsLoginOpen }) => {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center">
+        <div className="lg:hidden flex items-center">
           <button onClick={toggleMenu} className="text-violet-300 mr-2">
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -94,7 +94,7 @@ const Navbar = ({ onLoginClick, onSignupClick, setIsLoginOpen }) => {
 
       {/* Mobile Navigation Menu */}
       {isMenuOpen && (
-        <div className="md:hidden absolute top-16 left-0 w-full bg-black shadow-lg py-2 z-10">
+        <div className="lg:hidden absolute top-16 left-0 w-full bg-black shadow-lg py-2 z-10">
           <Link 
             href="/" 
             className="block px-4 py-2 text-violet-300 text-lg font-bold"

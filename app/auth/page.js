@@ -68,14 +68,14 @@ const Authpage = () => {
           onSignupClick={openSignup}
           setIsLoginOpen={setIsLoginOpen}
         />
-        <div className='text-center text-white pt-20'>
+        <div className='text-center text-white pt-24'>
           {!isAuthenticated ? (
             <>
               <h1 className='text-2xl font-bold mb-16 text-cyan-300'>
                 <FaExclamationTriangle className='inline-block mr-2 text-3xl text-red-600' />
                 Please log in or sign up to continue
               </h1>
-              <div className='flex justify-center space-x-8'>
+              <div className='lg:hidden flex justify-center space-x-8'>
                 <button onClick={openLogin} className='flex items-center bg-violet-700 text-white rounded-lg px-3 py-1 text-sm font-bold hover:bg-cyan-600 transition duration-200 mb-4'>
                   <FaSignInAlt className='mr-1' />
                   Log In
