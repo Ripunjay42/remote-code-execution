@@ -20,9 +20,18 @@ export default function TestCases({ testCases, results, compilationError, comple
   return (
     <div className="mt-4">
       {complexity && (
-        <div className="mb-4 p-4 border border-red-500 rounded bg-gray-900 text-white text-sm">
-          <h3 className="text-lg font-semibold text-blue-500">Complexity Analysis : </h3>
-          <pre className="text-green-400 whitespace-pre-wrap">{JSON.stringify(complexity, null, 2)}</pre>
+        <div className="mb-4 p-4 border border-green-500 rounded-lg bg-gradient-to-br from-gray-800 to-gray-900 text-white text-sm shadow-lg">
+          <h3 className="text-lg font-bold text-green-400 mb-3">Complexity Analysis</h3>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-gray-700 rounded p-3 border-l-4 border-blue-400">
+              <p className="text-gray-300 text-xs font-semibold mb-1">Time Complexity</p>
+              <p className="text-white text-xl font-mono font-bold">{complexity.Time_Complexity}</p>
+            </div>
+            <div className="bg-gray-700 rounded p-3 border-l-4 border-purple-400">
+              <p className="text-gray-300 text-xs font-semibold mb-1">Space Complexity</p>
+              <p className="text-white text-xl font-mono font-bold">{complexity.Space_Complexity}</p>
+            </div>
+          </div>
         </div>
       )}
 
